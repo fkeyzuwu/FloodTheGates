@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5737316406022461992}
   - component: {fileID: 5439963493735296208}
   - component: {fileID: 8553621882688620352}
+  - component: {fileID: 3244414136573984778}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -95,6 +96,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   resources: {fileID: 8553621882688620352}
+  visibleEntitiesManager: {fileID: 3244414136573984778}
+  fogRadius: 5
 --- !u!114 &8553621882688620352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,3 +113,17 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   resourcePrefabs: []
+--- !u!114 &3244414136573984778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7461996623248191986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de05be5b9e2874b4fb0f2163e30ce9d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 1
+  syncInterval: 0.1

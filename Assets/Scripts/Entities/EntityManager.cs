@@ -51,8 +51,22 @@ public class EntityManager : NetworkBehaviour
         entities.Add(obj);
     }
 
-    public void UpdateEntities()
+    [Server]
+    public void UpdateEntities(NetworkConnectionToClient sender)
     {
+        Player player = sender.identity.GetComponent<Player>();
+        Vector3 senderPosition = sender.identity.transform.position;
+        var colliders = Physics.OverlapSphere(senderPosition, player.FogRadius);
 
+        List<GameObject> entities = new List<GameObject>();
+
+        foreach(Collider collider in colliders)
+        {
+            entities.Add(collider.gameObject);
+        }
+
+        player.VisibleEntitiesManager.TargetSpawnEntities(entities);
     }
+
+    
 }
