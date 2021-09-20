@@ -11,7 +11,7 @@ public class EntityManager : NetworkBehaviour
 
     void Awake()
     {
-        if (!isServer) Destroy(gameObject);
+        if (!isServer) return;
 
         if (instance == null)
         {
@@ -49,6 +49,7 @@ public class EntityManager : NetworkBehaviour
     public void AddEntity(GameObject obj)
     {
         entities.Add(obj);
+        TempUpdateEntities(obj);
     }
 
     [Server]
@@ -66,6 +67,11 @@ public class EntityManager : NetworkBehaviour
         }
 
         player.VisibleEntitiesManager.TargetSpawnEntities(entities);
+    }
+
+    public void TempUpdateEntities(GameObject entity)
+    {
+        NetworkServer.Spawn(entity);
     }
 
     

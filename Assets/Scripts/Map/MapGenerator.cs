@@ -20,7 +20,7 @@ public class MapGenerator : MonoBehaviour
         {
             Transform currentContainer = resourcesContainer.Find(resource.GetComponent<Resource>().Name);
 
-            for(int i = 0; i < 10; i++)
+            for(int i = 0; i < 5; i++)
             {
                 GameObject obj = Instantiate(resource, GenerateMapPosition(), Quaternion.identity , currentContainer);
                 entityManager.AddEntity(obj);
@@ -30,8 +30,8 @@ public class MapGenerator : MonoBehaviour
 
     private Vector3 GenerateMapPosition()
     {
-        float x = Random.Range(-10, 10);
-        float z = Random.Range(-10, 10);
+        float x = Random.Range(-50, 50);
+        float z = Random.Range(-50, 50);
 
         return new Vector3(x, 0, z);
     }
