@@ -5,7 +5,12 @@ using UnityEngine.EventSystems;
 
 public class Resource : MonoBehaviour, ICollectable
 {
-    public string Name { get; }
+    [SerializeField] private new string name;
+
+    public string Name
+    {
+        get { return name; }
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {
