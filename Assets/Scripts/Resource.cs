@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Resource : ICollectable
+public class Resource : MonoBehaviour, ICollectable
 {
+    public string Name { get; }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         //maybe doesnt need this, need to decide if want to check from player or from this
