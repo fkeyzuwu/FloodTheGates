@@ -7,12 +7,10 @@ public class EntityManager : NetworkBehaviour
 {
     private static EntityManager instance = null;
 
-    private SyncHashSet<GameObject> entities = new SyncHashSet<GameObject>();
+    private SyncHashSet<uint> entities = new SyncHashSet<uint>();
 
     void Awake()
     {
-        if (!isServer) return;
-
         if (instance == null)
         {
             instance = this;
@@ -46,33 +44,33 @@ public class EntityManager : NetworkBehaviour
         }
     }
 
-    public void AddEntity(GameObject obj)
+    [Server]
+    public void AddEntity(GameObject entity, uint entityNetId)
     {
-        entities.Add(obj);
-        TempUpdateEntities(obj);
+        entities.Add(entityNetId);
+        TempUpdateEntities(entity);
     }
 
     [Server]
-    public void UpdateEntities(NetworkConnectionToClient sender)
-    {
-        Player player = sender.identity.GetComponent<Player>();
-        Vector3 senderPosition = sender.identity.transform.position;
-        var colliders = Physics.OverlapSphere(senderPosition, player.FogRadius);
-
-        List<GameObject> entities = new List<GameObject>();
-
-        foreach(Collider collider in colliders)
-        {
-            entities.Add(collider.gameObject);
-        }
-
-        player.VisibleEntitiesManager.TargetSpawnEntities(entities);
-    }
-
     public void TempUpdateEntities(GameObject entity)
     {
         NetworkServer.Spawn(entity);
     }
 
-    
+    //[Server]
+    //public void UpdateEntities(NetworkConnectionToClient sender)
+    //{
+    //    Player player = sender.identity.GetComponent<Player>();
+    //    Vector3 senderPosition = sender.identity.transform.position;
+    //    var colliders = Physics.OverlapSphere(senderPosition, player.FogRadius);
+
+    //    List<GameObject> entities = new List<GameObject>();
+
+    //    foreach(Collider collider in colliders)
+    //    {
+    //        entities.Add(collider.gameObject);
+    //    }
+
+    //    player.VisibleEntitiesManager.TargetSpawnEntities(entities);
+    //}
 }

@@ -2,10 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Mirror;
 
-public class Resource : MonoBehaviour, ICollectable
+public class Resource : NetworkBehaviour, ICollectable
 {
     [SerializeField] private new string name;
+    [SyncVar] public uint parentNetId;
+
+    public override void OnStartClient()
+    {
+        Transform parent = NetworkClient.spawned[parentNetId].transform;
+        transform.SetParent(parent);
+    }
 
     public string Name
     {
