@@ -23,9 +23,9 @@ public class MapGenerator : NetworkBehaviour
             Transform currentContainer = resourcesContainer.Find(resource.GetComponent<Resource>().Name);
             uint containerNetId = currentContainer.GetComponent<NetworkIdentity>().netId;
 
-            for(int i = 0; i < 5; i++)
+            for(int i = 0; i < 3; i++)
             {
-                GameObject obj = Instantiate(resource, GenerateMapPosition(), GenerateObjectRotation(), currentContainer);
+                GameObject obj = Instantiate(resource, GenerateMapPosition(), GenerateObjectRotation(resource.transform.rotation), currentContainer);
                 obj.GetComponent<Resource>().parentNetId = containerNetId;
                 entityManager.AddEntity(obj ,obj.GetComponent<NetworkIdentity>().netId);
             }
@@ -42,8 +42,8 @@ public class MapGenerator : NetworkBehaviour
     }
 
     [Server]
-    private Quaternion GenerateObjectRotation()
+    private Quaternion GenerateObjectRotation(Quaternion baseRotation)
     {
-        return Quaternion.Euler(0, Random.Range(0, 360), 0);
+       return Quaternion.Euler(baseRotation.eulerAngles.x, Random.Range(0, 360), baseRotation.eulerAngles.z);
     }
 }

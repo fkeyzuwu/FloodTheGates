@@ -362,14 +362,6 @@ PrefabInstance:
       propertyPath: resourcesContainer
       value: 
       objectReference: {fileID: 8554114732161444697}
-    - target: {fileID: 1397618887844834509, guid: 6c67c25552d4a274ebdd308cde30c0e6, type: 3}
-      propertyPath: resources.Array.data[0]
-      value: 
-      objectReference: {fileID: 6918996007888418644, guid: d19c1df9b8aded541ae5225377db912c, type: 3}
-    - target: {fileID: 1397618887844834509, guid: 6c67c25552d4a274ebdd308cde30c0e6, type: 3}
-      propertyPath: resources.Array.data[1]
-      value: 
-      objectReference: {fileID: 3233846447666597037, guid: 1547c5976cec12f47967325d3573592a, type: 3}
     - target: {fileID: 1397618887844834511, guid: 6c67c25552d4a274ebdd308cde30c0e6, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -433,7 +425,7 @@ PrefabInstance:
       objectReference: {fileID: 7461996623248191986, guid: 704586eef7a64a14291e6dba2dfaca88, type: 3}
     - target: {fileID: 1913165632389430195, guid: e05e3ac6a6dbc4641ad0431b22e7d619, type: 3}
       propertyPath: spawnPrefabs.Array.size
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1913165632389430195, guid: e05e3ac6a6dbc4641ad0431b22e7d619, type: 3}
       propertyPath: spawnPrefabs.Array.data[0]
@@ -446,19 +438,19 @@ PrefabInstance:
     - target: {fileID: 1913165632389430195, guid: e05e3ac6a6dbc4641ad0431b22e7d619, type: 3}
       propertyPath: spawnPrefabs.Array.data[2]
       value: 
-      objectReference: {fileID: 4424489061798510594, guid: dde87d0f451b3f041b7e55fe01b23a57, type: 3}
+      objectReference: {fileID: 100095750996358310, guid: 09a516d4002b2794cbab35b5e99dd22c, type: 3}
     - target: {fileID: 1913165632389430195, guid: e05e3ac6a6dbc4641ad0431b22e7d619, type: 3}
       propertyPath: spawnPrefabs.Array.data[3]
       value: 
-      objectReference: {fileID: 100095750996358310, guid: 09a516d4002b2794cbab35b5e99dd22c, type: 3}
+      objectReference: {fileID: 384142612054072744, guid: fc4f295856c638247bd07c8b38e1fe8d, type: 3}
     - target: {fileID: 1913165632389430195, guid: e05e3ac6a6dbc4641ad0431b22e7d619, type: 3}
       propertyPath: spawnPrefabs.Array.data[4]
       value: 
-      objectReference: {fileID: 384142612054072744, guid: fc4f295856c638247bd07c8b38e1fe8d, type: 3}
+      objectReference: {fileID: 1733223080529008180, guid: 851362184febbaf498bfa7a5e645c77a, type: 3}
     - target: {fileID: 1913165632389430195, guid: e05e3ac6a6dbc4641ad0431b22e7d619, type: 3}
       propertyPath: spawnPrefabs.Array.data[5]
       value: 
-      objectReference: {fileID: 1733223080529008180, guid: 851362184febbaf498bfa7a5e645c77a, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5601883412920854311, guid: e05e3ac6a6dbc4641ad0431b22e7d619, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -577,11 +569,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2923139890167931602, guid: c73cf69f81ce29146a2872270c5dea39, type: 3}
   m_PrefabInstance: {fileID: 8554114732161444696}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8554114732161444700 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8929835823757850369, guid: c73cf69f81ce29146a2872270c5dea39, type: 3}
-  m_PrefabInstance: {fileID: 8554114732161444696}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8554114732161444701 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2666454212846126431, guid: c73cf69f81ce29146a2872270c5dea39, type: 3}
@@ -617,23 +604,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 181631068
-  serverOnly: 0
-  visible: 0
-  m_AssetId: c73cf69f81ce29146a2872270c5dea39
-  hasSpawned: 0
---- !u!114 &8554114732161444708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8554114732161444700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 1382950692
   serverOnly: 0
   visible: 0
   m_AssetId: c73cf69f81ce29146a2872270c5dea39
