@@ -10,14 +10,9 @@ public class MapGenerator : NetworkBehaviour
 
     [SerializeField] private EntityManager entityManager;
 
-    void Update()
+    public override void OnStartServer()
     {
-        if (!isServer) return;
-
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            Generate();
-        }
+        Generate();
     }
 
     [Server]
@@ -30,7 +25,7 @@ public class MapGenerator : NetworkBehaviour
 
             for(int i = 0; i < 5; i++)
             {
-                GameObject obj = Instantiate(resource, GenerateMapPosition(), Quaternion.identity, currentContainer);
+                GameObject obj = Instantiate(resource, GenerateMapPosition(), GenerateObjectRotation(), currentContainer);
                 obj.GetComponent<Resource>().parentNetId = containerNetId;
                 entityManager.AddEntity(obj ,obj.GetComponent<NetworkIdentity>().netId);
             }
@@ -44,5 +39,11 @@ public class MapGenerator : NetworkBehaviour
         float z = Random.Range(-50, 50);
 
         return new Vector3(x, 0, z);
+    }
+
+    [Server]
+    private Quaternion GenerateObjectRotation()
+    {
+        return Quaternion.Euler(0, Random.Range(0, 360), 0);
     }
 }
