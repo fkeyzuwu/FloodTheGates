@@ -336,6 +336,7 @@ GameObject:
   - component: {fileID: 1867075315247288504}
   - component: {fileID: 1574059543172074692}
   - component: {fileID: -8962177736328615069}
+  - component: {fileID: 7002390587131102286}
   m_Layer: 0
   m_Name: Wood
   m_TagString: Untagged
@@ -427,6 +428,22 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!208 &7002390587131102286
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3233846447666597037}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 50, y: 25, z: 25}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 25, z: 3}
+  m_TimeToStationary: 0.5
 --- !u!1 &4014032802299758942
 GameObject:
   m_ObjectHideFlags: 0

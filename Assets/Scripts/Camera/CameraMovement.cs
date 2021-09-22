@@ -13,7 +13,7 @@ public class CameraMovement : MonoBehaviour
 
     void Update()
     {
-        if (player == null)
+        if (!player)
         {
             return;
         }

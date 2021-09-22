@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2563848360302315542}
   - component: {fileID: 1258521343648703967}
   - component: {fileID: -2371100639899160005}
+  - component: {fileID: -6989943591740919462}
   m_Layer: 0
   m_Name: Crystal
   m_TagString: Untagged
@@ -146,3 +147,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!208 &-6989943591740919462
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384142612054072744}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.8920002, y: 3.5, z: 3.2670002}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.072000004, y: 0.95800006, z: -0.134}
+  m_TimeToStationary: 0.5
