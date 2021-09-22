@@ -5,6 +5,12 @@ using Mirror;
 
 public class VisibleEntitiesManager : NetworkBehaviour
 {
+    //[SerializeField] private float fogRadius = 5f;
+    //public float FogRadius
+    //{
+    //    get { return fogRadius; }
+    //}
+
     //private SyncHashSet<GameObject> visibleEntities = new SyncHashSet<GameObject>();
 
     //private void RequestEntityUpdate()

@@ -7,15 +7,14 @@ public class Player : NetworkBehaviour
 {
     [SerializeField] private PlayerResources resources;
     [SerializeField] private VisibleEntitiesManager visibleEntitiesManager;
-    [SerializeField] private float fogRadius = 5f;
 
     public VisibleEntitiesManager VisibleEntitiesManager
     {
         get { return visibleEntitiesManager; }
     }
 
-    public float FogRadius
+    public PlayerResources Resources
     {
-        get { return fogRadius; }
+        get { return resources; }
     }
 }
