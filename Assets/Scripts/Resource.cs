@@ -7,6 +7,7 @@ using Mirror;
 public class Resource : NetworkBehaviour, ICollectable
 {
     [SerializeField] private new string name;
+    [SyncVar] public int amount;
     [SyncVar] public uint parentNetId;
 
     public override void OnStartClient()
@@ -20,11 +21,6 @@ public class Resource : NetworkBehaviour, ICollectable
         get { return name; }
     }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        //maybe doesnt need this, need to decide if want to check from player or from this
-    }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         //add cursor change
@@ -33,5 +29,10 @@ public class Resource : NetworkBehaviour, ICollectable
     public void OnPointerExit(PointerEventData eventData)
     {
         //add cursor change
+    }
+
+    public void Collect(PlayerResources resources)
+    {
+        resources.AddResource(name, amount, netId);
     }
 }

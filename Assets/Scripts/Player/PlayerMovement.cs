@@ -6,11 +6,15 @@ using Mirror;
 
 public class PlayerMovement : NetworkBehaviour
 {
+    [SerializeField] private PlayerInteractions interactions;
+
     [SerializeField] private NavMeshAgent agent;
     private new Camera camera;
 
     [SerializeField] private float rotateSpeedMovement = 0.1f;
     private float rotateVelocity;
+
+    private float interactDistance = 4f;
 
     public override void OnStartLocalPlayer()
     {
@@ -25,21 +29,43 @@ public class PlayerMovement : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            RaycastHit hit;
+            Move();
+        }
+    }
 
-            if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
+    private void Move()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
+        {
+            agent.SetDestination(hit.point);
+
+            Quaternion rotationToLookAt = Quaternion.LookRotation(hit.point - transform.position);
+            float rotationY = Mathf.SmoothDampAngle(
+                transform.eulerAngles.y,
+                rotationToLookAt.eulerAngles.y,
+                ref rotateVelocity,
+                rotateSpeedMovement * (Time.deltaTime * 5)
+                );
+
+            transform.eulerAngles = new Vector3(0, rotationY, 0);
+
+            Debug.Log(hit.transform.name);
+
+            IInteractable interactable = hit.transform.GetComponent<IInteractable>();
+
+            Debug.Log(interactable);
+
+            if (interactable != null)
             {
-                agent.SetDestination(hit.point);
+                float distance = Vector3.Distance(transform.position, hit.point);
+                Debug.Log(distance);
 
-                Quaternion rotationToLookAt = Quaternion.LookRotation(hit.point - transform.position);
-                float rotationY = Mathf.SmoothDampAngle(
-                    transform.eulerAngles.y,
-                    rotationToLookAt.eulerAngles.y,
-                    ref rotateVelocity,
-                    rotateSpeedMovement * (Time.deltaTime * 5)
-                    );
-
-                transform.eulerAngles = new Vector3(0, rotationY, 0);
+                if(distance <= interactDistance)
+                {
+                    interactions.Interact(interactable);
+                }
             }
         }
     }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5749981958248538498}
   - component: {fileID: -4607510097071923103}
   - component: {fileID: -6673408335918146650}
+  - component: {fileID: 5998646235976547354}
   m_Layer: 0
   m_Name: Sulfur
   m_TagString: Untagged
@@ -50,6 +51,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   name: Sulfur
+  amount: 0
   parentNetId: 0
 --- !u!114 &5749981958248538498
 MonoBehaviour:
@@ -113,6 +115,19 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: -1}
   m_TimeToStationary: 0.5
+--- !u!65 &5998646235976547354
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733223080529008180}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 19, y: 15, z: 5}
+  m_Center: {x: 0, y: 0, z: -1}
 --- !u!1001 &8723423638505869126
 PrefabInstance:
   m_ObjectHideFlags: 0

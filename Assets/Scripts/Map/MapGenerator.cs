@@ -27,6 +27,7 @@ public class MapGenerator : NetworkBehaviour
             {
                 GameObject obj = Instantiate(resource, GenerateMapPosition(), GenerateObjectRotation(resource.transform.rotation), currentContainer);
                 obj.GetComponent<Resource>().parentNetId = containerNetId;
+                obj.GetComponent<Resource>().amount = Random.Range(2, 6);
                 entityManager.AddEntity(obj ,obj.GetComponent<NetworkIdentity>().netId);
             }
         }

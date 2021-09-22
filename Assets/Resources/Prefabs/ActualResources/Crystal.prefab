@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1258521343648703967}
   - component: {fileID: -2371100639899160005}
   - component: {fileID: -6989943591740919462}
+  - component: {fileID: 100162668351087189}
   m_Layer: 0
   m_Name: Crystal
   m_TagString: Untagged
@@ -51,6 +52,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   name: Crystal
+  amount: 0
   parentNetId: 0
 --- !u!114 &2511473962267954308
 MonoBehaviour:
@@ -157,9 +159,22 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 2.8920002, y: 3.5, z: 3.2670002}
+  m_Extents: {x: 2.8920002, y: 2, z: 3.2670002}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.072000004, y: 0.95800006, z: -0.134}
   m_TimeToStationary: 0.5
+--- !u!65 &100162668351087189
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384142612054072744}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.702921, y: 3.102894, z: 6.193032}
+  m_Center: {x: -0.02200067, y: 1.3734673, z: 1.3290122}

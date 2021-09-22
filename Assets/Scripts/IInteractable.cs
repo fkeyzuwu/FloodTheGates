@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public interface IInteractable : IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+public interface IInteractable : IPointerEnterHandler, IPointerExitHandler
 {
 
 }

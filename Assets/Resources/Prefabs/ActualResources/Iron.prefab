@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -5171192134689198097}
   - component: {fileID: -3070949221974194789}
   - component: {fileID: 1284146175161627794}
+  - component: {fileID: 1381702240603210216}
   m_Layer: 0
   m_Name: Iron
   m_TagString: Untagged
@@ -55,6 +56,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   name: Iron
+  amount: 0
   parentNetId: 0
 --- !u!114 &-5171192134689198097
 MonoBehaviour:
@@ -118,6 +120,19 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1.5, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &1381702240603210216
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100095750996358310}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 3, z: 3}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!1001 &229826698
 PrefabInstance:
   m_ObjectHideFlags: 0

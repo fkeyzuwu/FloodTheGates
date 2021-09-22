@@ -5,6 +5,7 @@ using Mirror;
 
 public class Player : NetworkBehaviour
 {
+    [SerializeField] private PlayerMovement movement;
     [SerializeField] private PlayerResources resources;
     [SerializeField] private VisibleEntitiesManager visibleEntitiesManager;
 

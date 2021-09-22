@@ -16,15 +16,17 @@ public class PlayerResources : NetworkBehaviour
         }
     }
 
-    public void AddResource(string name, int amount)
+    public void AddResource(string name, int amount, uint resourceNetId)
     {
-        CmdAddResource(name, amount);
+        CmdAddResource(name, amount, resourceNetId);
     }
 
     [Command]
-    private void CmdAddResource(string name, int amount)
+    private void CmdAddResource(string name, int amount, uint resourceNetId)
     {
         Resources[name] += amount;
+        GameObject resource = NetworkServer.spawned[resourceNetId].gameObject;
+        EntityManager.Instance.RemoveEntity(resource, resourceNetId);
     }
 
     public void SubtractResource(string name, int amount)
