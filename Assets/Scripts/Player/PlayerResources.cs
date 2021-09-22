@@ -27,6 +27,11 @@ public class PlayerResources : NetworkBehaviour
         Resources[name] += amount;
         GameObject resource = NetworkServer.spawned[resourceNetId].gameObject;
         EntityManager.Instance.RemoveEntity(resource, resourceNetId);
+
+        foreach(KeyValuePair<string, int> kvp in Resources)
+        {
+            Debug.Log($"{kvp.Key} : {kvp.Value}");
+        }
     }
 
     public void SubtractResource(string name, int amount)

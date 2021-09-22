@@ -51,16 +51,11 @@ public class PlayerMovement : NetworkBehaviour
 
             transform.eulerAngles = new Vector3(0, rotationY, 0);
 
-            Debug.Log(hit.transform.name);
-
             IInteractable interactable = hit.transform.GetComponent<IInteractable>();
-
-            Debug.Log(interactable);
 
             if (interactable != null)
             {
                 float distance = Vector3.Distance(transform.position, hit.point);
-                Debug.Log(distance);
 
                 if(distance <= interactDistance)
                 {

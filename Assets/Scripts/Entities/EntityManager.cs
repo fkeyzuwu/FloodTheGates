@@ -55,7 +55,7 @@ public class EntityManager : NetworkBehaviour
     public void RemoveEntity(GameObject entity, uint entityNetId)
     {
         entities.Remove(entityNetId);
-        NetworkServer.UnSpawn(entity);
+        NetworkServer.Destroy(entity);
     }
 
     [Server]
