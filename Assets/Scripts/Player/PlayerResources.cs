@@ -7,6 +7,7 @@ public class PlayerResources : NetworkBehaviour
 {
     public SyncDictionary<string, int> Resources = new SyncDictionary<string, int>();
     [SerializeField] private Resource[] resourcePrefabs;
+    private ResourceBar resourceUI;
 
     void Awake()
     {
@@ -16,9 +17,15 @@ public class PlayerResources : NetworkBehaviour
         }
     }
 
+    public override void OnStartLocalPlayer()
+    {
+        resourceUI = FindObjectOfType<ResourceBar>();
+    }
+
     public void AddResource(string name, int amount, uint resourceNetId)
     {
         CmdAddResource(name, amount, resourceNetId);
+        resourceUI.UpdateResourceUI(name, amount);
     }
 
     [Command]
@@ -27,11 +34,6 @@ public class PlayerResources : NetworkBehaviour
         Resources[name] += amount;
         GameObject resource = NetworkServer.spawned[resourceNetId].gameObject;
         EntityManager.Instance.RemoveEntity(resource, resourceNetId);
-
-        foreach(KeyValuePair<string, int> kvp in Resources)
-        {
-            Debug.Log($"{kvp.Key} : {kvp.Value}");
-        }
     }
 
     public void SubtractResource(string name, int amount)
