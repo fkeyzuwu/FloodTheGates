@@ -12,24 +12,31 @@ public class MapGenerator : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        Generate();
+        GenerateMap();
     }
 
     [Server]
-    public void Generate()
+    public void GenerateMap()
     {
-        foreach(GameObject resource in resources)
+        GenerateResources();
+        //later add: GenerateTowns, GenerateGates, GenerateArtifacts.. etc
+    }
+
+    [Server]
+    private void GenerateResources()
+    {
+        foreach (GameObject resource in resources)
         {
             Transform currentContainer = resourcesContainer.Find(resource.GetComponent<Resource>().Name);
             uint containerNetId = currentContainer.GetComponent<NetworkIdentity>().netId;
 
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 GameObject obj = Instantiate(resource, GenerateMapPosition(), GenerateObjectRotation(resource.transform.rotation), currentContainer);
                 Resource currentResource = obj.GetComponent<Resource>();
                 currentResource.parentNetId = containerNetId;
                 currentResource.amount = Random.Range(2, 6) * currentResource.Multiplier;
-                entityManager.AddEntity(obj ,obj.GetComponent<NetworkIdentity>().netId);
+                entityManager.AddEntity(obj, obj.GetComponent<NetworkIdentity>().netId);
             }
         }
     }

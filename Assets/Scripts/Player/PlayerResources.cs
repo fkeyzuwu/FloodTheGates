@@ -25,7 +25,7 @@ public class PlayerResources : NetworkBehaviour
     public void AddResource(string name, int amount, uint resourceNetId)
     {
         CmdAddResource(name, amount, resourceNetId);
-        resourceUI.UpdateResourceUI(name, amount);
+        resourceUI.UpdateResourceUI(name ,Resources[name]);
     }
 
     [Command]
