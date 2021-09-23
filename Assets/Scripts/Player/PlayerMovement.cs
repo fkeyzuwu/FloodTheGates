@@ -15,6 +15,8 @@ public class PlayerMovement : NetworkBehaviour
     private float rotateVelocity;
 
     private float interactDistance = 4f;
+    private bool isLastInputInteractable = false;
+    private IInteractable lastInteractableClicked = null;
 
     public override void OnStartLocalPlayer()
     {
@@ -55,13 +57,45 @@ public class PlayerMovement : NetworkBehaviour
 
             if (interactable != null)
             {
-                float distance = Vector3.Distance(transform.position, hit.point);
-
-                if(distance <= interactDistance)
+                if (lastInteractableClicked == interactable)
                 {
-                    interactions.Interact(interactable);
+                    return;
                 }
+                else
+                {
+                    StopAllCoroutines();
+                }
+
+                isLastInputInteractable = true;
+                lastInteractableClicked = interactable;
+                StartCoroutine(WaitForInteractDistance(interactable, hit.point));
+            }
+            else
+            {
+                isLastInputInteractable = false;
             }
         }
+    }
+
+    IEnumerator WaitForInteractDistance(IInteractable interactable, Vector3 interactablePosition)
+    {
+        while (isLastInputInteractable)
+        {
+            float distance = Vector3.Distance(transform.position, interactablePosition);
+            Debug.Log(distance);
+
+            if (distance > interactDistance)
+            {
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
+            else
+            {
+                Debug.Log("interact");
+                isLastInputInteractable = false;
+                interactions.Interact(interactable);
+            }
+        }
+
+        lastInteractableClicked = null;
     }
 }
