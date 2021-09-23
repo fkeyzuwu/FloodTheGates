@@ -383,7 +383,8 @@ MonoBehaviour:
   syncInterval: 0.1
   name: Wood
   amount: 0
-  parentNetId: 0
+  minimumAmount: 4
+  maximumAmount: 10
 --- !u!114 &1574059543172074692
 MonoBehaviour:
   m_ObjectHideFlags: 0

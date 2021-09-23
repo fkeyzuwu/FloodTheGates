@@ -57,7 +57,8 @@ MonoBehaviour:
   syncInterval: 0.1
   name: Iron
   amount: 0
-  parentNetId: 0
+  minimumAmount: 3
+  maximumAmount: 7
 --- !u!114 &-5171192134689198097
 MonoBehaviour:
   m_ObjectHideFlags: 0

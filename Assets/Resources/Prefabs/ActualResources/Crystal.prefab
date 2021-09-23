@@ -53,7 +53,8 @@ MonoBehaviour:
   syncInterval: 0.1
   name: Crystal
   amount: 0
-  parentNetId: 0
+  minimumAmount: 2
+  maximumAmount: 5
 --- !u!114 &2511473962267954308
 MonoBehaviour:
   m_ObjectHideFlags: 0

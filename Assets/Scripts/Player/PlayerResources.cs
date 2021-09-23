@@ -25,13 +25,13 @@ public class PlayerResources : NetworkBehaviour
     public void AddResource(string name, int amount, uint resourceNetId)
     {
         CmdAddResource(name, amount, resourceNetId);
-        resourceUI.UpdateResourceUI(name ,Resources[name]);
     }
 
     [Command]
     private void CmdAddResource(string name, int amount, uint resourceNetId)
     {
         Resources[name] += amount;
+        TargetUpdateResourceUI(name, Resources[name]);
         GameObject resource = NetworkServer.spawned[resourceNetId].gameObject;
         EntityManager.Instance.RemoveEntity(resource, resourceNetId);
     }
@@ -49,5 +49,11 @@ public class PlayerResources : NetworkBehaviour
         {
             Resources[name] = 0;
         }
+    }
+
+    [TargetRpc]
+    private void TargetUpdateResourceUI(string name, int amount)
+    {
+        resourceUI.UpdateResourceUI(name, amount);
     }
 }

@@ -8,23 +8,12 @@ public class Resource : NetworkBehaviour, ICollectable
 {
     [SerializeField] private new string name;
     [SyncVar] public int amount;
-    [SerializeField] private int multiplier = 1;
-    [SyncVar] public uint parentNetId;
-
-    public override void OnStartClient()
-    {
-        Transform parent = NetworkClient.spawned[parentNetId].transform;
-        transform.SetParent(parent);
-    }
+    [SyncVar] public int minimumAmount;
+    [SyncVar] public int maximumAmount;
 
     public string Name
     {
         get { return name; }
-    }
-
-    public int Multiplier
-    {
-        get { return multiplier; }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -40,5 +29,11 @@ public class Resource : NetworkBehaviour, ICollectable
     public void Collect(PlayerResources resources)
     {
         resources.AddResource(name, amount, netId);
+    }
+    
+    [Server]
+    public void GenerateAmount()
+    {
+        amount = Random.Range(minimumAmount, maximumAmount);
     }
 }

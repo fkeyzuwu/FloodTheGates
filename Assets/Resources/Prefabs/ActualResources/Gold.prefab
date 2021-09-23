@@ -133,8 +133,8 @@ MonoBehaviour:
   syncInterval: 0.1
   name: Gold
   amount: 0
-  multiplier: 200
-  parentNetId: 0
+  minimumAmount: 500
+  maximumAmount: 2000
 --- !u!114 &9129986147690970824
 MonoBehaviour:
   m_ObjectHideFlags: 0

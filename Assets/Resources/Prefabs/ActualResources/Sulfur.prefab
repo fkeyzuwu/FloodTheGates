@@ -52,7 +52,8 @@ MonoBehaviour:
   syncInterval: 0.1
   name: Sulfur
   amount: 0
-  parentNetId: 0
+  minimumAmount: 2
+  maximumAmount: 5
 --- !u!114 &5749981958248538498
 MonoBehaviour:
   m_ObjectHideFlags: 0
