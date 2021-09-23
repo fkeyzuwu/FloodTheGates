@@ -133,6 +133,7 @@ MonoBehaviour:
   syncInterval: 0.1
   name: Gold
   amount: 0
+  multiplier: 200
   parentNetId: 0
 --- !u!114 &9129986147690970824
 MonoBehaviour:

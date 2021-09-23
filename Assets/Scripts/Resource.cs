@@ -8,6 +8,7 @@ public class Resource : NetworkBehaviour, ICollectable
 {
     [SerializeField] private new string name;
     [SyncVar] public int amount;
+    [SerializeField] private int multiplier = 1;
     [SyncVar] public uint parentNetId;
 
     public override void OnStartClient()
@@ -19,6 +20,11 @@ public class Resource : NetworkBehaviour, ICollectable
     public string Name
     {
         get { return name; }
+    }
+
+    public int Multiplier
+    {
+        get { return multiplier; }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
