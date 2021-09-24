@@ -68,7 +68,7 @@ public class PlayerMovement : NetworkBehaviour
 
                 isLastInputInteractable = true;
                 lastInteractableClicked = interactable;
-                StartCoroutine(WaitForInteractDistance(interactable, hit.point));
+                StartCoroutine(WaitForInteractDistance(hit.transform.gameObject ,interactable, hit.point));
             }
             else
             {
@@ -77,12 +77,17 @@ public class PlayerMovement : NetworkBehaviour
         }
     }
 
-    IEnumerator WaitForInteractDistance(IInteractable interactable, Vector3 interactablePosition)
+    IEnumerator WaitForInteractDistance(GameObject interactableGameobject, IInteractable interactable, Vector3 interactablePosition)
     {
         while (isLastInputInteractable)
         {
+            if(interactableGameobject == null)
+            {
+                isLastInputInteractable = false;
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
+
             float distance = Vector3.Distance(transform.position, interactablePosition);
-            Debug.Log(distance);
 
             if (distance > interactDistance)
             {
@@ -90,7 +95,6 @@ public class PlayerMovement : NetworkBehaviour
             }
             else
             {
-                Debug.Log("interact");
                 isLastInputInteractable = false;
                 interactions.Interact(interactable);
             }
