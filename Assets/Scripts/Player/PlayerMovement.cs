@@ -7,7 +7,6 @@ using Mirror;
 public class PlayerMovement : NetworkBehaviour
 {
     [SerializeField] private PlayerInteractions interactions;
-
     [SerializeField] private NavMeshAgent agent;
     private new Camera camera;
 
