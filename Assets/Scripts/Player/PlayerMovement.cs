@@ -14,7 +14,7 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField] private float rotateSpeedMovement = 0.1f;
     private float rotateVelocity;
 
-    private float interactDistance = 4f;
+    [SerializeField] private float interactDistance = 2.5f;
     private bool isLastInputInteractable = false;
     private IInteractable lastInteractableClicked = null;
 
@@ -81,9 +81,10 @@ public class PlayerMovement : NetworkBehaviour
     {
         while (isLastInputInteractable)
         {
-            if(interactableGameobject == null)
+            if(interactableGameobject == null) //another player took the interactable object
             {
                 isLastInputInteractable = false;
+                agent.SetDestination(transform.position);
                 yield return new WaitForSeconds(Time.deltaTime);
             }
 
