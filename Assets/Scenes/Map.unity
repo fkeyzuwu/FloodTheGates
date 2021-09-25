@@ -1976,6 +1976,10 @@ PrefabInstance:
       value: 3318062763
       objectReference: {fileID: 0}
     - target: {fileID: 1397618887844834509, guid: 6c67c25552d4a274ebdd308cde30c0e6, type: 3}
+      propertyPath: resourceAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397618887844834509, guid: 6c67c25552d4a274ebdd308cde30c0e6, type: 3}
       propertyPath: resourcesContainer
       value: 
       objectReference: {fileID: 8334791786104758098}

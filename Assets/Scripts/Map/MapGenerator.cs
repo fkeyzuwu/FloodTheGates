@@ -7,6 +7,7 @@ public class MapGenerator : NetworkBehaviour
 {
     [SerializeField] private Transform resourcesContainer;
     [SerializeField] private GameObject[] resources;
+    [SerializeField] private int resourceAmount;
 
     [SerializeField] private EntityManager entityManager;
 
@@ -29,7 +30,7 @@ public class MapGenerator : NetworkBehaviour
         {
             Transform currentContainer = resourcesContainer.Find(resource.GetComponent<Resource>().Name);
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < resourceAmount; i++)
             {
                 GameObject obj = Instantiate(resource, GenerateMapPosition(), GenerateObjectRotation(resource.transform.rotation), currentContainer);
                 Resource currentResource = obj.GetComponent<Resource>();
