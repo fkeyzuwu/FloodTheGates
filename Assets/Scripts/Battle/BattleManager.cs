@@ -6,13 +6,13 @@ public static class BattleManager
 {
     private static List<Battle> battles = new List<Battle>();
 
-    private static bool isBatteling(uint netId1, uint netId2)
+    private static bool isBatteling(uint netId)
     {
         foreach(Battle battle in battles)
         {
-            var players = battle.GetPlayersByNetId();
+            var combatants = battle.GetCombatantsByNetId();
 
-            if(players.Contains(netId1) && players.Contains(netId2))
+            if(combatants.Contains(netId))
             {
                 return true;
             }
@@ -23,13 +23,13 @@ public static class BattleManager
 
     public static void CreateBattle(uint netId1, uint netId2)
     {
-        if(!isBatteling(netId1, netId2))
+        if(!isBatteling(netId1) && !isBatteling(netId2))
         {
             battles.Add(new Battle(netId1, netId2)); //starts additive scene bs inside constructor
         }
         else
         {
-            Debug.Log("Players already started a fight");
+            Debug.Log("Combatants already started a fight");
         }
     }
 }

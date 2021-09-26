@@ -16,10 +16,9 @@ public class PlayerInteractions : NetworkBehaviour
             return;
         }
 
-        if(interactable is Player)
+        if(interactable is IBattlable)
         {
-            //begin battle
-            Player enemy = interactable as Player;
+            IBattlable enemy = interactable as IBattlable;
             player.StartBattle(enemy);
             return;
         }

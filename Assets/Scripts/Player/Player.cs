@@ -4,7 +4,7 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.EventSystems;
 
-public class Player : NetworkBehaviour, IInteractable
+public class Player : NetworkBehaviour, IBattlable
 {
     [SerializeField] private PlayerMovement movement;
     [SerializeField] private PlayerResources resources;
@@ -30,9 +30,10 @@ public class Player : NetworkBehaviour, IInteractable
         //add cursor change
     }
 
-    public void StartBattle(Player enemy)
+    public void StartBattle(IBattlable enemy)
     {
-        uint enemyNetId = enemy.GetComponent<NetworkIdentity>().netId;
+        NetworkBehaviour enemyMb = enemy as NetworkBehaviour;
+        uint enemyNetId = enemyMb.GetComponent<NetworkIdentity>().netId;
         CmdCreateBattle(netId ,enemyNetId);
     }
 
