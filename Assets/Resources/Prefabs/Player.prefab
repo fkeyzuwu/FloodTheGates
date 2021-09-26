@@ -254,4 +254,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  player: {fileID: 5439963493735296208}
   resources: {fileID: 8553621882688620352}
