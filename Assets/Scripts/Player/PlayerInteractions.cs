@@ -6,13 +6,12 @@ using Mirror;
 public class PlayerInteractions : NetworkBehaviour
 {
     [SerializeField] private Player player;
-    [SerializeField] private PlayerResources resources;
     public void Interact(IInteractable interactable)
     {
         if(interactable is ICollectable)
         {
             ICollectable collectable = interactable as ICollectable;
-            collectable.Collect(resources);
+            collectable.Collect(player.Data);
             return;
         }
 

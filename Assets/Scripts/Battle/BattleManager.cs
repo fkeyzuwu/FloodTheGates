@@ -10,9 +10,9 @@ public static class BattleManager
     {
         foreach(Battle battle in battles)
         {
-            var combatants = battle.GetCombatantsByNetId();
+            var battlers = battle.GetBattlersByNetId();
 
-            if(combatants.Contains(netId))
+            if(battlers.Contains(netId))
             {
                 return true;
             }
@@ -29,7 +29,7 @@ public static class BattleManager
         }
         else
         {
-            Debug.Log("Combatants already started a fight");
+            Debug.Log("Entites already battling");
         }
     }
 }

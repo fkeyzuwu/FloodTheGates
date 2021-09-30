@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Army : MonoBehaviour
 {
-    [HideInInspector] public Creature[] Creatures { get; set; } = new Creature[7];
+    [HideInInspector] public List<InGameCreature> Creatures = new List<InGameCreature>();
 }

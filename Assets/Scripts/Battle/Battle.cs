@@ -5,37 +5,42 @@ using Mirror;
 
 public class Battle
 {
-    private IBattlable combatant1;
-    private uint combatant1NetId;
-    private IBattlable combatant2;
-    private uint combatant2NetId;
+    private List<IBattlable> battlers;
+    private List<uint> battlersNetId;
 
     public Battle(uint netId1, uint netId2)
     {
-        combatant1NetId = netId1;
-        combatant2NetId = netId2;
-        combatant1 = NetworkServer.spawned[netId1].GetComponent<IBattlable>();
-        combatant2 = NetworkServer.spawned[netId2].GetComponent<IBattlable>();
+        battlersNetId.Add(netId1);
+        battlersNetId.Add(netId2);
+        battlers.Add(NetworkServer.spawned[netId1].GetComponent<IBattlable>());
+        battlers.Add(NetworkServer.spawned[netId2].GetComponent<IBattlable>());
         //additive scene bullshit?
         //if only 1 combtant is player - make a scene with one player and 1 ai based on creature
         //if 2 combatants are players - make a scene and add both players to it.
 
-        Debug.Log($"Battle between {combatant1} and {combatant2} has started!");
+        foreach(IBattlable battler in battlers)
+        {
+            if (battler is Player)
+            {
+                Player player = battler as Player;
+                //spawn army shit idk
+            }
+            else
+            {
+
+            }
+        }
+
+        Debug.Log($"Battle between {battlers[0]} and {battlers[1]} has started!");
     }
 
-    public List<IBattlable> GetCombatants()
+    public List<IBattlable> GetBattlers()
     {
-        var combatants = new List<IBattlable>();
-        combatants.Add(combatant1);
-        combatants.Add(combatant2);
-        return combatants;
+        return battlers;
     }
 
-    public List<uint> GetCombatantsByNetId()
+    public List<uint> GetBattlersByNetId()
     {
-        var combatants = new List<uint>();
-        combatants.Add(combatant1NetId);
-        combatants.Add(combatant2NetId);
-        return combatants;
+        return battlersNetId;
     }
 }

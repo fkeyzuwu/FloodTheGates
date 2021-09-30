@@ -26,9 +26,9 @@ public class Resource : NetworkBehaviour, ICollectable
         //add cursor change
     }
 
-    public void Collect(PlayerResources resources)
+    public void Collect(PlayerData data)
     {
-        resources.AddResource(name, amount, netId);
+        data.Resources.AddResource(name, amount, netId);
     }
     
     [Server]

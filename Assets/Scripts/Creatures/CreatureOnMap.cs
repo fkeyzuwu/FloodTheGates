@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class CreatureOnMap : NetworkBehaviour , IBattlable
 {
-    public Creature Creature { get; set; }
+    public InGameCreature Creature { get; set; }
 
     public void OnPointerEnter(PointerEventData eventData)
     {

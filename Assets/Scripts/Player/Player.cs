@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class Player : NetworkBehaviour, IBattlable
 {
     [SerializeField] private PlayerMovement movement;
-    [SerializeField] private PlayerResources resources;
+    [SerializeField] private PlayerData data;
     [SerializeField] private VisibleEntitiesManager visibleEntitiesManager;
 
     public VisibleEntitiesManager VisibleEntitiesManager
@@ -15,9 +15,9 @@ public class Player : NetworkBehaviour, IBattlable
         get { return visibleEntitiesManager; }
     }
 
-    public PlayerResources Resources
+    public PlayerData Data
     {
-        get { return resources; }
+        get { return data; }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
