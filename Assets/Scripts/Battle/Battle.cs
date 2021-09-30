@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.SceneManagement;
 
 public class Battle
 {
@@ -23,7 +24,6 @@ public class Battle
             if (battler is Player)
             {
                 Player player = battler as Player;
-                //spawn army shit idk
             }
             else
             {
