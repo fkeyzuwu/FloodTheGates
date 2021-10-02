@@ -24,10 +24,13 @@ public class PlayerMovement : NetworkBehaviour
         camera.transform.position = transform.position + camera.GetComponent<CameraMovement>().cameraOffset;
         //really bad camera injection shit but whatever good enough for now, later gotta fix
     }
+
+    public override void OnStartClient()
+    {
+        enabled = isLocalPlayer;
+    }
     void Update()
     {
-        if (!isLocalPlayer) return;
-
         if (Input.GetMouseButtonDown(1))
         {
             Move();

@@ -22,9 +22,24 @@ public class FTGNetworkManager : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
+        StartCoroutine(OnServerAddPlayerDelayed(conn));
+    }
+
+    IEnumerator OnServerAddPlayerDelayed(NetworkConnection conn)
+    {
+        // wait for server to async load all subscenes for game instances
+        while (!battleScenesLoaded)
+            yield return null;
+
+        // Send Scene message to client to additively load the game scene
+        conn.Send(new SceneMessage { sceneName = battleScene, sceneOperation = SceneOperation.LoadAdditive });
+
+        // Wait for end of frame before adding the player to ensure Scene Message goes first
+        yield return new WaitForEndOfFrame();
+
         base.OnServerAddPlayer(conn);
 
-        conn.identity.GetComponent<Player>().Data.ID = clientIndex;
+        conn.identity.GetComponent<Player>().Data.ID = clientIndex; //use this to determine whos using each scene
         clientIndex++;
     }
 
