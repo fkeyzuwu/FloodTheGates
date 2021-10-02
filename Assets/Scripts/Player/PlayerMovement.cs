@@ -31,6 +31,8 @@ public class PlayerMovement : NetworkBehaviour
     }
     void Update()
     {
+        if (!agent.enabled) return;
+
         if (Input.GetMouseButtonDown(1))
         {
             Move();
@@ -104,5 +106,11 @@ public class PlayerMovement : NetworkBehaviour
         }
 
         lastInteractableClicked = null;
+    }
+
+    [ClientRpc]
+    public void RpcToggleAgent(bool toggle)
+    {
+        agent.enabled = toggle;
     }
 }

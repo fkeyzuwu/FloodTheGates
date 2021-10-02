@@ -32,7 +32,8 @@ public class Battle
                 Player player = battler as Player;
                 playerCount++;
 
-                 //turn of NavMeshAgent so we can teleport the player
+                //turn of NavMeshAgent so we can teleport the player
+                player.Movement.RpcToggleAgent(false);
                 //also enable here the controller for fighting
 
                 if(playerCount == 2)
@@ -53,13 +54,14 @@ public class Battle
             }
         }
 
-        Debug.Log($"Battle between {battlers[0]} and {battlers[1]} has started!");
-
+        //do this for each creature in each players army
         GameObject obj = Resources.Load<GameObject>(path + "TestCreature");
         GameObject testCreature = Object.Instantiate(obj, BattleManager.battlePositions[0], Quaternion.identity);
         SceneManager.MoveGameObjectToScene(testCreature, battleScene);
 
         NetworkServer.Spawn(testCreature);
+
+        Debug.Log($"Battle between {battlers[0]} and {battlers[1]} has started!");
     }
 
     public List<IBattlable> GetBattlers()
