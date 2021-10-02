@@ -7,6 +7,8 @@ using UnityEngine.AI;
 
 public class Battle
 {
+    private const string path = "Prefabs/Creatures/";
+
     private List<IBattlable> battlers = new List<IBattlable>();
     private List<uint> battlersNetId = new List<uint>();
 
@@ -52,6 +54,12 @@ public class Battle
         }
 
         Debug.Log($"Battle between {battlers[0]} and {battlers[1]} has started!");
+
+        GameObject obj = Resources.Load<GameObject>(path + "TestCreature");
+        GameObject testCreature = Object.Instantiate(obj, BattleManager.battlePositions[0], Quaternion.identity);
+        SceneManager.MoveGameObjectToScene(testCreature, battleScene);
+
+        NetworkServer.Spawn(testCreature);
     }
 
     public List<IBattlable> GetBattlers()
