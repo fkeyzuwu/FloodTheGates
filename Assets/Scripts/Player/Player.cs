@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.EventSystems;
+using System;
 
 public class Player : NetworkBehaviour, IBattlable
 {
@@ -45,6 +46,12 @@ public class Player : NetworkBehaviour, IBattlable
     [Command]
     public void CmdCreateBattle(uint netId1, uint netId2)
     {
-        BattleManager.CreateBattle(netId1, netId2);
+        BattleSystem.Instance.CreateBattle(netId1, netId2);
+    }
+
+    [ClientRpc]
+    public void RpcSetPosition(Vector3 position)
+    {
+        transform.position = position;
     }
 }

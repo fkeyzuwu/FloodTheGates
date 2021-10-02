@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.SceneManagement;
-using UnityEngine.AI;
 
 public class Battle
 {
-    private const string path = "Prefabs/Creatures/";
-
     private List<IBattlable> battlers = new List<IBattlable>();
     private List<uint> battlersNetId = new List<uint>();
+    public bool Initialized { get; } = false;
 
     public Battle(uint netId1, uint netId2)
     {
@@ -18,9 +16,8 @@ public class Battle
         battlersNetId.Add(netId2);
         battlers.Add(NetworkServer.spawned[netId1].GetComponent<IBattlable>());
         battlers.Add(NetworkServer.spawned[netId2].GetComponent<IBattlable>());
-        
 
-        int playerCount = 0;
+        bool isBattleSceneSet = false;
         Scene battleScene = new Scene(); //so we can change it later
 
         //if only 1 battler is player - make a scene with one player and 1 ai based on creature
@@ -30,36 +27,21 @@ public class Battle
             if (battler is Player)
             {
                 Player player = battler as Player;
-                playerCount++;
 
-                //turn of NavMeshAgent so we can teleport the player
-                player.Movement.RpcToggleAgent(false);
-                //also enable here the controller for fighting
-
-                if(playerCount == 2)
-                {
-                    SceneManager.MoveGameObjectToScene(player.gameObject, battleScene);
-                    player.transform.position = BattleManager.battlePositions[1];
-                }
-                else
+                if(!isBattleSceneSet)
                 {
                     battleScene = ((FTGNetworkManager)NetworkManager.singleton).battleScenes[player.Data.ID];
-                    SceneManager.MoveGameObjectToScene(player.gameObject, battleScene);
-                    player.transform.position = BattleManager.battlePositions[0];
-                } 
+                    isBattleSceneSet = true;
+                }
+
+                SceneManager.MoveGameObjectToScene(player.gameObject, battleScene);
+                player.Movement.RpcToggleAgent(false);
             }
             else
             {
                 //figure this out later, here are battlers if they arent players
             }
         }
-
-        //do this for each creature in each players army
-        GameObject obj = Resources.Load<GameObject>(path + "TestCreature");
-        GameObject testCreature = Object.Instantiate(obj, BattleManager.battlePositions[0], Quaternion.identity);
-        SceneManager.MoveGameObjectToScene(testCreature, battleScene);
-
-        NetworkServer.Spawn(testCreature);
 
         Debug.Log($"Battle between {battlers[0]} and {battlers[1]} has started!");
     }
