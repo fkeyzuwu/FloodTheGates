@@ -14,9 +14,8 @@ public class EntityManager : NetworkBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(gameObject);
         }
-
         else
         {
             Destroy(gameObject);

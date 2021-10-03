@@ -24,9 +24,14 @@ public class PlayerMovement : NetworkBehaviour
         camera.transform.position = transform.position + camera.GetComponent<CameraMovement>().cameraOffset;
         //really bad camera injection shit but whatever good enough for now, later gotta fix
     }
+
+    public override void OnStartClient()
+    {
+        enabled = isLocalPlayer;
+    }
     void Update()
     {
-        if (!isLocalPlayer) return;
+        if (!agent.enabled) return;
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -101,5 +106,11 @@ public class PlayerMovement : NetworkBehaviour
         }
 
         lastInteractableClicked = null;
+    }
+
+    [ClientRpc]
+    public void RpcToggleAgent(bool toggle)
+    {
+        agent.enabled = toggle;
     }
 }

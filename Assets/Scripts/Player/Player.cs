@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.EventSystems;
+using System;
 
 public class Player : NetworkBehaviour, IBattlable
 {
@@ -20,6 +21,11 @@ public class Player : NetworkBehaviour, IBattlable
         get { return data; }
     }
 
+    public PlayerMovement Movement
+    {
+        get { return movement; }
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         //add cursor change
@@ -32,14 +38,20 @@ public class Player : NetworkBehaviour, IBattlable
 
     public void StartBattle(IBattlable enemy)
     {
-        NetworkBehaviour enemyMb = enemy as NetworkBehaviour;
-        uint enemyNetId = enemyMb.GetComponent<NetworkIdentity>().netId;
-        CmdCreateBattle(netId ,enemyNetId);
+        NetworkBehaviour enemyNb = enemy as NetworkBehaviour;
+        uint enemyNetId = enemyNb.GetComponent<NetworkIdentity>().netId;
+        CmdCreateBattle(netId, enemyNetId);
     }
 
     [Command]
     public void CmdCreateBattle(uint netId1, uint netId2)
     {
-        BattleManager.CreateBattle(netId1, netId2);
+        BattleSystem.Instance.CreateBattle(netId1, netId2);
+    }
+
+    [ClientRpc]
+    public void RpcSetPosition(Vector3 position)
+    {
+        transform.position = position;
     }
 }
