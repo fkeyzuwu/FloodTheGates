@@ -93,7 +93,6 @@ public class BattleSystem : NetworkBehaviour
         yield return new WaitForSeconds(0.05f); //hopefully enough so players get the navmesh thingy
 
         InitializePlayerPositions(battle);
-        InitializeCreaturesPositions(battle);
     }
 
     private void InitializePlayerPositions(Battle battle)
@@ -116,13 +115,23 @@ public class BattleSystem : NetworkBehaviour
         }
     }
 
-    private void InitializeCreaturesPositions(Battle battle)
-    {
-
-    }
-
     private void SpawnCreatures(Battle battle)
     {
-
+        foreach(IBattlable battlable in battle.GetBattlers())
+        {
+            if(battlable is Player)
+            {
+                Player player = battlable as Player;
+                
+                foreach(string creatureName in player.Data.Army.Army.Keys)
+                {
+                    GameObject creature = Resources.Load<GameObject>(path + creatureName);
+                    creature.GetComponent<InGameCreature>().amount = player.Data.Army.Army[creatureName];
+                    Instantiate(creature);
+                    //make their positions and rotations based on whos players who
+                    NetworkServer.Spawn(creature, player.connectionToClient);
+                }
+            }
+        }
     }
 }
