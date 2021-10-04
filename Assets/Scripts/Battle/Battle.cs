@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Battle
 {
+    private Scene battleScene = new Scene();
     private List<IBattlable> battlers = new List<IBattlable>();
     private List<uint> battlersNetId = new List<uint>();
     public bool Initialized { get; } = false;
@@ -18,7 +19,6 @@ public class Battle
         battlers.Add(NetworkServer.spawned[netId2].GetComponent<IBattlable>());
 
         bool isBattleSceneSet = false;
-        Scene battleScene = new Scene(); //so we can change it later
 
         //if only 1 battler is player - make a scene with one player and 1 ai based on creature
         //if 2 battlers are players - 1 player hosts the scene and the other one joins.
@@ -54,6 +54,11 @@ public class Battle
     public List<uint> GetBattlersByNetId()
     {
         return battlersNetId;
+    }
+
+    public Scene GetBattleScene()
+    {
+        return battleScene;
     }
 
     public void End()

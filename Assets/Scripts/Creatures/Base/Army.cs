@@ -5,29 +5,23 @@ using Mirror;
 
 public class Army : NetworkBehaviour
 {
-    private const string creaturePath = "Prefabs/Creatures/";
-
-    [HideInInspector] public ArmySlot[] slots = new ArmySlot[7];
-    private int slotAvailable = 0;
+    public SyncList<ArmySlot> slots = new SyncList<ArmySlot>();
 
     public void AddCreatureToArmy(Creature creature)
     {
-        if (slotAvailable == -1) //no available slot 
-        {
-            Debug.Log($"No available slots to add creature {creature}");
-        } 
-
         CmdAddCreatureToArmy(creature.Data.Name, creature.Data.Amount);
     }
 
     [Command]
     private void CmdAddCreatureToArmy(string creatureName, int amount)
     {
-        slots[slotAvailable] = new ArmySlot(creatureName, amount);
-
-        if(slotAvailable + 1 == slots.Length) //Out of bounds
+        if(slots.Count == 7) //Out of bounds
         {
-            slotAvailable = -1;
+            Debug.Log("Max Army");
+            return;
         }
+
+        slots.Add(new ArmySlot(creatureName, amount));
+        Debug.Log($"{slots[slots.Count - 1].creature}, {slots[slots.Count - 1].amount}");
     }
 }

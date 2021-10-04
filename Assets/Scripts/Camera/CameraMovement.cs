@@ -27,7 +27,6 @@ public class CameraMovement : MonoBehaviour
             case CameraControlMode.Free:
                 break;
             case CameraControlMode.Battle:
-
                 break;
         }
     }

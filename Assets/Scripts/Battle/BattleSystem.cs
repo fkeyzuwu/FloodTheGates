@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using System;
+using UnityEngine.SceneManagement;
 
 public class BattleSystem : NetworkBehaviour
 {
@@ -61,6 +62,7 @@ public class BattleSystem : NetworkBehaviour
         armyRotations[1] = Quaternion.Euler(new Vector3(0, 180, 0));
     }
 
+    [Server]
     private bool isBatteling(uint netId)
     {
         foreach (Battle battle in battles)
@@ -76,6 +78,7 @@ public class BattleSystem : NetworkBehaviour
         return false;
     }
 
+    [Server]
     public void CreateBattle(uint netId1, uint netId2)
     {
         if (!isBatteling(netId1) && !isBatteling(netId2))
@@ -90,11 +93,13 @@ public class BattleSystem : NetworkBehaviour
         }
     }
 
+    [Server]
     public void InitializeBattle(Battle battle)
     {
         StartCoroutine(InitializePositions(battle));
     }
 
+    [Server]
     IEnumerator InitializePositions(Battle battle)
     {
         yield return new WaitForSeconds(0.05f); //hopefully enough so players get the navmesh thingy
@@ -102,6 +107,7 @@ public class BattleSystem : NetworkBehaviour
         InitializePlayerPositions(battle);
     }
 
+    [Server]
     private void InitializePlayerPositions(Battle battle)
     {
         int i = 0;
@@ -124,13 +130,15 @@ public class BattleSystem : NetworkBehaviour
             i++;
         }
 
-        //SpawnCreatures(battle);
+        SpawnCreatures(battle);
     }
 
+    [Server]
     private void SpawnCreatures(Battle battle)
     {
         int creatureIndex = 0;
         int playerIndex = 0;
+        Scene battleScene = battle.GetBattleScene();
 
         foreach(IBattlable battlable in battle.GetBattlers())
         {
@@ -140,13 +148,16 @@ public class BattleSystem : NetworkBehaviour
                 
                 foreach(ArmySlot slot in player.Army.slots)
                 {
+                    Debug.Log(path + slot.creature);
                     GameObject creature = Resources.Load<GameObject>(path + slot.creature);
+                    Debug.Log(creature);
                     creature.GetComponent<Creature>().Data.Amount = slot.amount;
                     creature.transform.position = creatureStartPositions[creatureIndex].position;
                     creature.transform.rotation = armyRotations[playerIndex];
-                    Instantiate(creature);
+                    GameObject creatureObj = Instantiate(creature);
+                    SceneManager.MoveGameObjectToScene(creatureObj, battleScene);
                     //make their positions and rotations based on whos players who
-                    NetworkServer.Spawn(creature, player.connectionToClient);
+                    NetworkServer.Spawn(creatureObj, player.connectionToClient);
 
                     creatureIndex++;
                 }
