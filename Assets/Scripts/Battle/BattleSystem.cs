@@ -123,10 +123,10 @@ public class BattleSystem : NetworkBehaviour
             {
                 Player player = battlable as Player;
                 
-                foreach(string creatureName in player.Data.Army.Army.Keys)
+                foreach(ArmySlot slot in player.Army.slots)
                 {
-                    GameObject creature = Resources.Load<GameObject>(path + creatureName);
-                    creature.GetComponent<InGameCreature>().amount = player.Data.Army.Army[creatureName];
+                    GameObject creature = Resources.Load<GameObject>(path + slot.creature);
+                    creature.GetComponent<Creature>().Amount = slot.amount;
                     Instantiate(creature);
                     //make their positions and rotations based on whos players who
                     NetworkServer.Spawn(creature, player.connectionToClient);

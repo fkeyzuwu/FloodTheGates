@@ -7,24 +7,43 @@ using System;
 
 public class Player : NetworkBehaviour, IBattlable
 {
+    [SyncVar] private int id;
+
+    [SerializeField] private PlayerInventory inventory;
+    [SerializeField] private PlayerResources resources;
+    [SerializeField] private Army army;
+
     [SerializeField] private PlayerMovement movement;
-    [SerializeField] private PlayerData data;
-    [SerializeField] private VisibleEntitiesManager visibleEntitiesManager;
 
-    public VisibleEntitiesManager VisibleEntitiesManager
+    #region Getters & Setters
+
+    public PlayerInventory Inventory
     {
-        get { return visibleEntitiesManager; }
+        get { return inventory; }
     }
 
-    public PlayerData Data
+    public PlayerResources Resources
     {
-        get { return data; }
+        get { return resources; }
     }
 
+    public Army Army
+    {
+        get { return army; }
+    }
+    
     public PlayerMovement Movement
     {
         get { return movement; }
     }
+
+    public int ID
+    {
+        get { return id; }
+        set { id = value; }
+    }
+
+    #endregion
 
     public void OnPointerEnter(PointerEventData eventData)
     {

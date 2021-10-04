@@ -20,9 +20,9 @@ GameObject:
   - component: {fileID: 8553621882688620352}
   - component: {fileID: 5562204782134475557}
   - component: {fileID: -5407186654864892763}
-  - component: {fileID: 7677665292959174921}
   - component: {fileID: -2031298119977070722}
   - component: {fileID: -1098201881746857352}
+  - component: {fileID: 5960317242667142824}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -207,7 +207,7 @@ MonoBehaviour:
   syncInterval: 0.1
   resources: {fileID: 8553621882688620352}
   inventory: {fileID: -2031298119977070722}
-  army: {fileID: 7677665292959174921}
+  army: {fileID: 0}
 --- !u!114 &8553621882688620352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,20 +261,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   player: {fileID: 5439963493735296208}
---- !u!114 &7677665292959174921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7461996623248191986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15ac68ec481ebe148a99867545518eb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
 --- !u!114 &-2031298119977070722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,5 +283,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 586664514ea534443b1fde417c5fc82b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  specialAttack: 0
+--- !u!114 &5960317242667142824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7461996623248191986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc351ca6cee281e4ca0dfe0673601b26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

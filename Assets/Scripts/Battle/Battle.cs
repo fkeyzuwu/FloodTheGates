@@ -30,7 +30,7 @@ public class Battle
 
                 if(!isBattleSceneSet)
                 {
-                    battleScene = ((FTGNetworkManager)NetworkManager.singleton).battleScenes[player.Data.ID];
+                    battleScene = ((FTGNetworkManager)NetworkManager.singleton).battleScenes[player.ID];
                     isBattleSceneSet = true;
                 }
 

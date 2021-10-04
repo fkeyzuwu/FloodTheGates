@@ -39,7 +39,7 @@ public class FTGNetworkManager : NetworkManager
 
         base.OnServerAddPlayer(conn);
 
-        conn.identity.GetComponent<Player>().Data.ID = clientIndex; //use this to determine whos using each scene
+        conn.identity.GetComponent<Player>().ID = clientIndex; //use this to determine whos using each scene
         clientIndex++;
     }
 

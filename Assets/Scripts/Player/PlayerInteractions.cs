@@ -11,7 +11,7 @@ public class PlayerInteractions : NetworkBehaviour
         if(interactable is ICollectable)
         {
             ICollectable collectable = interactable as ICollectable;
-            collectable.Collect(player.Data);
+            collectable.Collect(player);
             return;
         }
 
