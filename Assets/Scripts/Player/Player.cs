@@ -81,14 +81,10 @@ public class Player : NetworkBehaviour, IBattlable
     }
 
     [ClientRpc]
-    public void RpcSetCameraPosition(Vector3 position)
+    public void RpcSetBattleCamera(Vector3 cameraPosition)
     {
-        Camera.main.transform.position = position;
-    }
-
-    [ClientRpc]
-    public void RpcSetCameraRotation(Quaternion rotation)
-    {
-        Camera.main.transform.rotation = rotation;
+        Transform camera = Camera.main.transform;
+        camera.GetComponent<CameraMovement>().controlMode = CameraControlMode.Battle;
+        camera.position = cameraPosition;
     }
 }

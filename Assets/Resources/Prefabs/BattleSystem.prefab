@@ -25,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4473784243771773843}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -47,7 +47,7 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 1
   visible: 0
-  m_AssetId: 
+  m_AssetId: e61d200df9ea8fa44b8cd18ec49f0d61
   hasSpawned: 0
 --- !u!114 &4473784243771773842
 MonoBehaviour:
@@ -69,3 +69,16 @@ MonoBehaviour:
   creatureStartPositions:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  cameraPosition: {fileID: 0}

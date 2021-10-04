@@ -51,8 +51,15 @@ public class BattleSystem : NetworkBehaviour
     [SerializeField] private Transform[] battlerStartPositions;
     [SerializeField] private Transform[] creatureStartPositions;
     [SerializeField] private Transform cameraPosition;
+    private Quaternion[] armyRotations = new Quaternion[2];
 
     private List<Battle> battles = new List<Battle>();
+
+    public override void OnStartServer()
+    {
+        armyRotations[0] = Quaternion.Euler(new Vector3(0, 0, 0));
+        armyRotations[1] = Quaternion.Euler(new Vector3(0, 180, 0));
+    }
 
     private bool isBatteling(uint netId)
     {
@@ -106,11 +113,8 @@ public class BattleSystem : NetworkBehaviour
             {
                 Player player = battler as Player;
                 player.RpcSetPosition(battlerStartPositions[i].position);
-                player.RpcSetRotation(Quaternion.Euler(new Vector3(0, 0, 0)));
-                player.RpcSetCameraPosition(cameraPosition.position);
-                player.RpcSetCameraRotation(Quaternion.Euler(new Vector3(0,0,0)));
-
-                SpawnCreatures(battle);
+                player.RpcSetRotation(armyRotations[i]);
+                player.RpcSetBattleCamera(cameraPosition.position);
             }
             else
             {
@@ -119,10 +123,15 @@ public class BattleSystem : NetworkBehaviour
 
             i++;
         }
+
+        //SpawnCreatures(battle);
     }
 
     private void SpawnCreatures(Battle battle)
     {
+        int creatureIndex = 0;
+        int playerIndex = 0;
+
         foreach(IBattlable battlable in battle.GetBattlers())
         {
             if(battlable is Player)
@@ -133,11 +142,17 @@ public class BattleSystem : NetworkBehaviour
                 {
                     GameObject creature = Resources.Load<GameObject>(path + slot.creature);
                     creature.GetComponent<Creature>().Data.Amount = slot.amount;
+                    creature.transform.position = creatureStartPositions[creatureIndex].position;
+                    creature.transform.rotation = armyRotations[playerIndex];
                     Instantiate(creature);
                     //make their positions and rotations based on whos players who
                     NetworkServer.Spawn(creature, player.connectionToClient);
+
+                    creatureIndex++;
                 }
             }
+
+            creatureIndex = 7;
         }
     }
 }
