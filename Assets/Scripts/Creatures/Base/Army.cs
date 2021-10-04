@@ -17,7 +17,7 @@ public class Army : NetworkBehaviour
             Debug.Log($"No available slots to add creature {creature}");
         } 
 
-        //CmdAddCreatureToArmy(creature.Name, creature.Amount);
+        CmdAddCreatureToArmy(creature.Data.Name, creature.Data.Amount);
     }
 
     [Command]

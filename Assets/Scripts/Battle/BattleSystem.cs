@@ -50,6 +50,7 @@ public class BattleSystem : NetworkBehaviour
 
     [SerializeField] private Transform[] battlerStartPositions;
     [SerializeField] private Transform[] creatureStartPositions;
+    [SerializeField] private Transform cameraPosition;
 
     private List<Battle> battles = new List<Battle>();
 
@@ -85,7 +86,6 @@ public class BattleSystem : NetworkBehaviour
     public void InitializeBattle(Battle battle)
     {
         StartCoroutine(InitializePositions(battle));
-        SpawnCreatures(battle);
     }
 
     IEnumerator InitializePositions(Battle battle)
@@ -98,6 +98,7 @@ public class BattleSystem : NetworkBehaviour
     private void InitializePlayerPositions(Battle battle)
     {
         int i = 0;
+        int playerCount = 0;
 
         foreach (IBattlable battler in battle.GetBattlers())
         {
@@ -105,6 +106,11 @@ public class BattleSystem : NetworkBehaviour
             {
                 Player player = battler as Player;
                 player.RpcSetPosition(battlerStartPositions[i].position);
+                player.RpcSetRotation(Quaternion.Euler(new Vector3(0, 0, 0)));
+                player.RpcSetCameraPosition(cameraPosition.position);
+                player.RpcSetCameraRotation(Quaternion.Euler(new Vector3(0,0,0)));
+
+                SpawnCreatures(battle);
             }
             else
             {
@@ -126,7 +132,7 @@ public class BattleSystem : NetworkBehaviour
                 foreach(ArmySlot slot in player.Army.slots)
                 {
                     GameObject creature = Resources.Load<GameObject>(path + slot.creature);
-                    creature.GetComponent<Creature>().Amount = slot.amount;
+                    creature.GetComponent<Creature>().Data.Amount = slot.amount;
                     Instantiate(creature);
                     //make their positions and rotations based on whos players who
                     NetworkServer.Spawn(creature, player.connectionToClient);

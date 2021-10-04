@@ -1,5 +1,6 @@
 public enum CameraControlMode
 {
     FollowPlayer,
-    Free
+    Free,
+    Battle
 }

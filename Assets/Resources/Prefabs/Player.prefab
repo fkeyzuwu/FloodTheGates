@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 1229488242}
   - component: {fileID: 1229488243}
   - component: {fileID: 5439963493735296208}
-  - component: {fileID: 6436195876503279652}
   - component: {fileID: 8553621882688620352}
   - component: {fileID: 5562204782134475557}
   - component: {fileID: -5407186654864892763}
@@ -188,26 +187,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  movement: {fileID: 5562204782134475557}
-  data: {fileID: 6436195876503279652}
-  visibleEntitiesManager: {fileID: 0}
---- !u!114 &6436195876503279652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7461996623248191986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09c14225a2d51b043881a50c2c857478, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  resources: {fileID: 8553621882688620352}
   inventory: {fileID: -2031298119977070722}
-  army: {fileID: 0}
+  resources: {fileID: 8553621882688620352}
+  army: {fileID: 5960317242667142824}
+  movement: {fileID: 5562204782134475557}
 --- !u!114 &8553621882688620352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,3 +283,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc351ca6cee281e4ca0dfe0673601b26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1

@@ -73,4 +73,22 @@ public class Player : NetworkBehaviour, IBattlable
     {
         transform.position = position;
     }
+
+    [ClientRpc]
+    public void RpcSetRotation(Quaternion rotation)
+    {
+        transform.rotation = rotation;
+    }
+
+    [ClientRpc]
+    public void RpcSetCameraPosition(Vector3 position)
+    {
+        Camera.main.transform.position = position;
+    }
+
+    [ClientRpc]
+    public void RpcSetCameraRotation(Quaternion rotation)
+    {
+        Camera.main.transform.rotation = rotation;
+    }
 }

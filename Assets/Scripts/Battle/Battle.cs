@@ -63,13 +63,12 @@ public class Battle
             if(battler is Player)
             {
                 Player player = battler as Player;
-                SceneManager.MoveGameObjectToScene(player.gameObject, SceneManager.GetSceneAt(0)); //Map scene
+                SceneManager.MoveGameObjectToScene(player.gameObject, SceneManager.GetSceneByName("Map"));
                 //turn on NavMeshAgent
             }
             else
             {
-                NetworkBehaviour nb = battler as NetworkBehaviour;
-                NetworkServer.Destroy(nb.gameObject);
+                NetworkServer.Destroy(((NetworkBehaviour)battler).gameObject);
             }   
         }
     }

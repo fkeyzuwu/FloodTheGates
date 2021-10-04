@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7081275487651583820}
   - component: {fileID: 1299643977301311441}
   m_Layer: 0
-  m_Name: TestCreature
+  m_Name: ElfArcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,8 +182,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  name: Elfdud123
-  amount: 1
-  hp: 23
-  tier: 1
-  faction: 4
+  data: {fileID: 11400000, guid: 8c9304461948719418270e8ee3df32ba, type: 2}
