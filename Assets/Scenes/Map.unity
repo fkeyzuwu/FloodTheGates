@@ -1021,7 +1021,7 @@ PrefabInstance:
     - target: {fileID: 4473784243771773842, guid: e61d200df9ea8fa44b8cd18ec49f0d61, type: 3}
       propertyPath: cameraPosition
       value: 
-      objectReference: {fileID: 951698538}
+      objectReference: {fileID: 0}
     - target: {fileID: 4473784243771773842, guid: e61d200df9ea8fa44b8cd18ec49f0d61, type: 3}
       propertyPath: battlerStartPositions.Array.data[0]
       value: 
@@ -1383,10 +1383,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 335285408760849799, guid: db9a6d66484d25d4e8d4ed4b1a7246a5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 1826797109965751474, guid: db9a6d66484d25d4e8d4ed4b1a7246a5, type: 3}
       propertyPath: m_Name
       value: BattlePositions
@@ -1455,11 +1451,6 @@ Transform:
 --- !u!4 &951698537 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1478969851, guid: db9a6d66484d25d4e8d4ed4b1a7246a5, type: 3}
-  m_PrefabInstance: {fileID: 951698533}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &951698538 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 335285408760849799, guid: db9a6d66484d25d4e8d4ed4b1a7246a5, type: 3}
   m_PrefabInstance: {fileID: 951698533}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &951698539 stripped
@@ -3089,11 +3080,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8255743114127180022, guid: e5650cc860c9d784ca3c80cdc4c9b9ef, type: 3}
       propertyPath: battleCameraPosition.z
-      value: 325
+      value: 336
       objectReference: {fileID: 0}
     - target: {fileID: 8255743114127180022, guid: e5650cc860c9d784ca3c80cdc4c9b9ef, type: 3}
       propertyPath: battleCameraRotation.x
-      value: 40
+      value: 57
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5650cc860c9d784ca3c80cdc4c9b9ef, type: 3}
