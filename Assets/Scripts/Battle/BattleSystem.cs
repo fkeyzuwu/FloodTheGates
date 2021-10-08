@@ -111,7 +111,7 @@ public class BattleSystem : NetworkBehaviour
     private void InitializePlayerPositions(Battle battle)
     {
         int i = 0;
-        int playerCount = 0;
+        //int playerCount = 0;
 
         foreach (IBattlable battler in battle.GetBattlers())
         {
@@ -120,7 +120,7 @@ public class BattleSystem : NetworkBehaviour
                 Player player = battler as Player;
                 player.RpcSetPosition(battlerStartPositions[i].position);
                 player.RpcSetRotation(armyRotations[i]);
-                player.RpcSetBattleCamera(cameraPosition.position);
+                player.RpcSetBattleCamera();
             }
             else
             {
@@ -148,9 +148,7 @@ public class BattleSystem : NetworkBehaviour
                 
                 foreach(ArmySlot slot in player.Army.slots)
                 {
-                    Debug.Log(path + slot.creature);
                     GameObject creature = Resources.Load<GameObject>(path + slot.creature);
-                    Debug.Log(creature);
                     creature.GetComponent<Creature>().Data.Amount = slot.amount;
                     creature.transform.position = creatureStartPositions[creatureIndex].position;
                     creature.transform.rotation = armyRotations[playerIndex];

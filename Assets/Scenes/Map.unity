@@ -3051,6 +3051,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8255743114127180022, guid: e5650cc860c9d784ca3c80cdc4c9b9ef, type: 3}
+      propertyPath: battleFOV
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255743114127180022, guid: e5650cc860c9d784ca3c80cdc4c9b9ef, type: 3}
+      propertyPath: mapCameraOffset.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255743114127180022, guid: e5650cc860c9d784ca3c80cdc4c9b9ef, type: 3}
+      propertyPath: mapCameraOffset.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255743114127180022, guid: e5650cc860c9d784ca3c80cdc4c9b9ef, type: 3}
+      propertyPath: mapCameraRotation.x
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255743114127180022, guid: e5650cc860c9d784ca3c80cdc4c9b9ef, type: 3}
+      propertyPath: mapCameraRotation.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255743114127180022, guid: e5650cc860c9d784ca3c80cdc4c9b9ef, type: 3}
+      propertyPath: battleCameraOffest.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255743114127180022, guid: e5650cc860c9d784ca3c80cdc4c9b9ef, type: 3}
+      propertyPath: battleCameraOffest.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255743114127180022, guid: e5650cc860c9d784ca3c80cdc4c9b9ef, type: 3}
+      propertyPath: battleCameraOffest.z
+      value: 325
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255743114127180022, guid: e5650cc860c9d784ca3c80cdc4c9b9ef, type: 3}
+      propertyPath: battleCameraPosition.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255743114127180022, guid: e5650cc860c9d784ca3c80cdc4c9b9ef, type: 3}
+      propertyPath: battleCameraPosition.z
+      value: 325
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255743114127180022, guid: e5650cc860c9d784ca3c80cdc4c9b9ef, type: 3}
+      propertyPath: battleCameraRotation.x
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5650cc860c9d784ca3c80cdc4c9b9ef, type: 3}
 --- !u!4 &6397099201694581551

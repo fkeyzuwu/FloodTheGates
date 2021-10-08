@@ -20,8 +20,6 @@ public class PlayerMovement : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         camera = Camera.main;
-        camera.GetComponent<CameraMovement>().player = transform; //injecting player into non networked object
-        camera.transform.position = transform.position + camera.GetComponent<CameraMovement>().cameraOffset;
         //really bad camera injection shit but whatever good enough for now, later gotta fix
     }
 

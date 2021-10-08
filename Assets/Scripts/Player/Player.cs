@@ -15,6 +15,9 @@ public class Player : NetworkBehaviour, IBattlable
 
     [SerializeField] private PlayerMovement movement;
 
+    private new Camera camera;
+    private CameraMovement camScript;
+
     #region Getters & Setters
 
     public PlayerInventory Inventory
@@ -44,6 +47,13 @@ public class Player : NetworkBehaviour, IBattlable
     }
 
     #endregion
+
+    public override void OnStartLocalPlayer()
+    {
+        camera = Camera.main;
+        camScript = camera.GetComponent<CameraMovement>();
+        camScript.InitializeCamera(transform);
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -81,10 +91,11 @@ public class Player : NetworkBehaviour, IBattlable
     }
 
     [ClientRpc]
-    public void RpcSetBattleCamera(Vector3 cameraPosition)
+    public void RpcSetBattleCamera()
     {
-        Transform camera = Camera.main.transform;
-        camera.GetComponent<CameraMovement>().controlMode = CameraControlMode.Battle;
-        camera.position = cameraPosition;
+        if(camScript != null)
+        {
+            camScript.SetupCamera(CameraControlMode.Battle);
+        }
     }
 }

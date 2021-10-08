@@ -18,7 +18,7 @@ public class PlayerInteractions : NetworkBehaviour
         if(interactable is IBattlable)
         {
             IBattlable enemy = interactable as IBattlable;
-            if(enemy != player)
+            if((Object)enemy != player)
             {
                 player.StartBattle(enemy);
             }
