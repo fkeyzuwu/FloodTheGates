@@ -51,6 +51,7 @@ public class BattleSystem : NetworkBehaviour
 
     [SerializeField] private Transform[] battlerStartPositions;
     [SerializeField] private Transform[] creatureStartPositions;
+    [SerializeField] private Transform cameraPosition;
     private Quaternion[] armyRotations = new Quaternion[2];
 
     private List<Battle> battles = new List<Battle>();
@@ -144,7 +145,6 @@ public class BattleSystem : NetworkBehaviour
             if(battlable is Player)
             {
                 Player player = battlable as Player;
-                Army playerArmy = player.GetComponent<Army>();
                 
                 foreach(ArmySlot slot in player.Army.slots)
                 {
@@ -154,9 +154,8 @@ public class BattleSystem : NetworkBehaviour
                     creature.transform.rotation = armyRotations[playerIndex];
                     GameObject creatureObj = Instantiate(creature);
                     SceneManager.MoveGameObjectToScene(creatureObj, battleScene);
+                    //make their positions and rotations based on whos players who
                     NetworkServer.Spawn(creatureObj, player.connectionToClient);
-
-                    playerArmy.combatCreatures.Add(creatureObj);
 
                     creatureIndex++;
                 }

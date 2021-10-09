@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using UnityEngine.AI;
 using System;
 
 public class PlayerCombat : NetworkBehaviour
 {
+    private new Camera camera;
+
     #region Input Mappings
 
     private Dictionary<string, KeyCode> inputs = new Dictionary<string, KeyCode>()
@@ -24,15 +25,10 @@ public class PlayerCombat : NetworkBehaviour
 
     #endregion
 
-    private new Camera camera;
-
-    private Army playerArmy;
-
     private List<KeyCode> currentlyPressed = new List<KeyCode>();
     void Awake()
     {
         camera = Camera.main;
-        playerArmy = GetComponent<Army>();
         enabled = false;
     }
 
@@ -66,46 +62,26 @@ public class PlayerCombat : NetworkBehaviour
         {
             CallAttack();
         }
+
+        if (currentlyPressed.Contains(inputs["SpecialAttack"]))
+        {
+            CallSpecialAttack();
+        }
+
+        return;
     }
 
     private void CallAttack()
     {
-        bool isSpecial = false;
-        Creature targetCreature = GetTargetCreature();
-
-        if (targetCreature != null && !playerArmy.combatCreatures.Contains(targetCreature.gameObject))
-        {
-            currentlyPressed.Remove(inputs["Attack"]);
-
-            if (currentlyPressed.Remove(inputs["SpecialAttack"]))
-            {
-                isSpecial = true;
-            }
-
-            foreach(KeyCode input in currentlyPressed)
-            {
-                
-            }
-            //call all units pressed on qwerasd to attack where you pressed
-        }
+        //call all units pressed on qwerasd to attack where you pressed
 
         currentlyPressed.Clear();
     }
 
-    private Creature GetTargetCreature()
+    private void CallSpecialAttack()
     {
-        RaycastHit hit;
+        //call all units pressed on qwerasd to attack where you pressed
 
-        if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
-        {
-            Creature creature = hit.transform.GetComponent<Creature>();
-
-            if (creature != null) //Add check to see if isnt a creature in our army
-            {
-                return creature;
-            }
-        }
-
-        return null;
+        currentlyPressed.Clear();
     }
 }
