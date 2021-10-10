@@ -20,7 +20,6 @@ public class PlayerMovement : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         camera = Camera.main;
-        //really bad camera injection shit but whatever good enough for now, later gotta fix
     }
 
     public override void OnStartClient()
