@@ -36,6 +36,7 @@ public class Battle
 
                 SceneManager.MoveGameObjectToScene(player.gameObject, battleScene);
                 player.Movement.RpcToggleAgent(false);
+                player.RpcToggleCombat(true);
             }
             else
             {

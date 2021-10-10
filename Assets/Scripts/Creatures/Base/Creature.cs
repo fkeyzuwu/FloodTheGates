@@ -14,7 +14,6 @@ public abstract class Creature : NetworkBehaviour, ICollectable
     public void Collect(Player player)
     {
         player.Army.AddCreatureToArmy(this);
-        Debug.Log("Added");
     }
 
     public void OnPointerEnter(PointerEventData eventData)

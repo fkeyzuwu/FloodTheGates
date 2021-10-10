@@ -12,6 +12,7 @@ public class Player : NetworkBehaviour, IBattlable
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private PlayerResources resources;
     [SerializeField] private Army army;
+    [SerializeField] private PlayerCombat combat;
 
     [SerializeField] private PlayerMovement movement;
 
@@ -91,11 +92,16 @@ public class Player : NetworkBehaviour, IBattlable
     }
 
     [ClientRpc]
-    public void RpcSetBattleCamera()
+    public void RpcSetCameraMode(CameraControlMode controlMode) //change this so this works with any mode
     {
         if(camScript != null)
         {
-            camScript.SetupCamera(CameraControlMode.Battle);
+            camScript.SetupCamera(controlMode);
         }
+    }
+
+    public void RpcToggleCombat(bool toggle)
+    {
+        combat.enabled = toggle;
     }
 }

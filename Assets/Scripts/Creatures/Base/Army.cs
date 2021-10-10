@@ -6,6 +6,7 @@ using Mirror;
 public class Army : NetworkBehaviour
 {
     public SyncList<ArmySlot> slots = new SyncList<ArmySlot>();
+    public SyncList<GameObject> combatArmy = new SyncList<GameObject>();
 
     public void AddCreatureToArmy(Creature creature)
     {

@@ -120,7 +120,7 @@ public class BattleSystem : NetworkBehaviour
                 Player player = battler as Player;
                 player.RpcSetPosition(battlerStartPositions[i].position);
                 player.RpcSetRotation(armyRotations[i]);
-                player.RpcSetBattleCamera();
+                player.RpcSetCameraMode(CameraControlMode.Battle);
             }
             else
             {
@@ -154,7 +154,7 @@ public class BattleSystem : NetworkBehaviour
                     creature.transform.rotation = armyRotations[playerIndex];
                     GameObject creatureObj = Instantiate(creature);
                     SceneManager.MoveGameObjectToScene(creatureObj, battleScene);
-                    //make their positions and rotations based on whos players who
+                    player.Army.combatArmy.Add(creatureObj);
                     NetworkServer.Spawn(creatureObj, player.connectionToClient);
 
                     creatureIndex++;
