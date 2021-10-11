@@ -90,29 +90,40 @@ public class PlayerCombat : NetworkBehaviour
 
     private void CallAttack()
     {
-        GameObject target = GetTarget();
+        Creature target = GetTargetCreature();
 
-        Debug.Log("CallAttack");
+        if (target == null) return;
 
-        if (target != null && target.GetComponent<Creature>() != null && !playerArmy.combatArmy.Contains(target))
+        if (isSpecialPressed)
         {
-            Debug.Log(target);
-
             foreach (KeyCode keyCode in currentlyPressed)
             {
-                Debug.Log(keyCode);
-                keyCreatureMap[keyCode].agent.SetDestination(target.transform.position);
+                keyCreatureMap[keyCode].creature.SpecialAttack(target);
             }
         }
+        else
+        {
+            foreach (KeyCode keyCode in currentlyPressed)
+            {
+                keyCreatureMap[keyCode].creature.Attack(target);
+            }
+        }
+
+        currentlyPressed.Clear();
     }
 
-    private GameObject GetTarget()
+    private Creature GetTargetCreature()
     {
         RaycastHit hit;
 
         if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
         {
-            return hit.transform.gameObject;
+            Creature target = hit.transform.GetComponent<Creature>();
+
+            if (target != null && !playerArmy.combatArmy.Contains(target.gameObject))
+            {
+                return target;
+            }
         }
 
         return null;

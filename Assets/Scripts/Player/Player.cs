@@ -94,10 +94,7 @@ public class Player : NetworkBehaviour, IBattlable
     [TargetRpc]
     public void TargetSetCameraMode(CameraControlMode controlMode) //change this so this works with any mode
     {
-        if(camScript != null)
-        {
-            camScript.SetupCamera(controlMode);
-        }
+        camScript.SetupCamera(controlMode);
     }
 
     [TargetRpc]
