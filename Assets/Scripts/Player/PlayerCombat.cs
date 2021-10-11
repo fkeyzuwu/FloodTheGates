@@ -7,6 +7,7 @@ using UnityEngine.AI;
 
 public class PlayerCombat : NetworkBehaviour
 {
+    [SerializeField] private Player player;
     [SerializeField] private Army playerArmy;
     private new Camera camera;
 
@@ -33,13 +34,14 @@ public class PlayerCombat : NetworkBehaviour
         KeyCode.D
     };
 
-    private Dictionary<KeyCode, GameObject> keyCreatureMap = new Dictionary<KeyCode, GameObject>();
+    private Dictionary<KeyCode, CombatCreature> keyCreatureMap = new Dictionary<KeyCode, CombatCreature>();
 
-    private void MapObjectToKey(SyncList<GameObject>.Operation op, int slotIndex, GameObject _, GameObject creature)
+    private void MapObjectToKey(SyncList<GameObject>.Operation op, int slotIndex, GameObject _, GameObject creatureObj)
     {
         switch (op)
         {
             case SyncList<GameObject>.Operation.OP_ADD:
+                CombatCreature creature = new CombatCreature(player, creatureObj, slotIndex);
                 keyCreatureMap.Add(selectKeys[slotIndex], creature);
                 Debug.Log(selectKeys[slotIndex]);
                 break;
@@ -90,11 +92,16 @@ public class PlayerCombat : NetworkBehaviour
     {
         GameObject target = GetTarget();
 
+        Debug.Log("CallAttack");
+
         if (target != null && target.GetComponent<Creature>() != null && !playerArmy.combatArmy.Contains(target))
         {
+            Debug.Log(target);
+
             foreach (KeyCode keyCode in currentlyPressed)
             {
-                keyCreatureMap[keyCode].GetComponent<NavMeshAgent>().SetDestination(target.transform.position);
+                Debug.Log(keyCode);
+                keyCreatureMap[keyCode].agent.SetDestination(target.transform.position);
             }
         }
     }

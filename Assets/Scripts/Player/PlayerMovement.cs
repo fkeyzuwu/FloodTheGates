@@ -86,14 +86,14 @@ public class PlayerMovement : NetworkBehaviour
             {
                 isLastInputInteractable = false;
                 agent.SetDestination(transform.position);
-                yield return new WaitForSeconds(Time.deltaTime);
+                yield return null;
             }
 
             float distance = Vector3.Distance(transform.position, interactablePosition);
 
             if (distance > interactDistance)
             {
-                yield return new WaitForSeconds(Time.deltaTime);
+                yield return null;
             }
             else
             {
@@ -105,8 +105,8 @@ public class PlayerMovement : NetworkBehaviour
         lastInteractableClicked = null;
     }
 
-    [ClientRpc]
-    public void RpcToggleAgent(bool toggle)
+    [TargetRpc]
+    public void TargetToggleAgent(bool toggle)
     {
         agent.enabled = toggle;
     }

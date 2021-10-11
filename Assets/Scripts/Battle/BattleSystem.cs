@@ -118,9 +118,9 @@ public class BattleSystem : NetworkBehaviour
             if(battler is Player)
             {
                 Player player = battler as Player;
-                player.RpcSetPosition(battlerStartPositions[i].position);
-                player.RpcSetRotation(armyRotations[i]);
-                player.RpcSetCameraMode(CameraControlMode.Battle);
+                player.TargetSetPosition(battlerStartPositions[i].position);
+                player.TargetSetRotation(armyRotations[i]);
+                player.TargetSetCameraMode(CameraControlMode.Battle);
             }
             else
             {

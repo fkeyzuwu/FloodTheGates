@@ -3132,7 +3132,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1913165632389430195, guid: e05e3ac6a6dbc4641ad0431b22e7d619, type: 3}
       propertyPath: instances
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1913165632389430195, guid: e05e3ac6a6dbc4641ad0431b22e7d619, type: 3}
       propertyPath: battleScene

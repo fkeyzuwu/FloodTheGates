@@ -271,6 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  player: {fileID: 5439963493735296208}
   playerArmy: {fileID: 5960317242667142824}
 --- !u!114 &5960317242667142824
 MonoBehaviour:

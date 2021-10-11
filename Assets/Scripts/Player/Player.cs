@@ -79,20 +79,20 @@ public class Player : NetworkBehaviour, IBattlable
         BattleSystem.Instance.CreateBattle(netId1, netId2);
     }
 
-    [ClientRpc]
-    public void RpcSetPosition(Vector3 position)
+    [TargetRpc]
+    public void TargetSetPosition(Vector3 position)
     {
         transform.position = position;
     }
 
-    [ClientRpc]
-    public void RpcSetRotation(Quaternion rotation)
+    [TargetRpc]
+    public void TargetSetRotation(Quaternion rotation)
     {
         transform.rotation = rotation;
     }
 
-    [ClientRpc]
-    public void RpcSetCameraMode(CameraControlMode controlMode) //change this so this works with any mode
+    [TargetRpc]
+    public void TargetSetCameraMode(CameraControlMode controlMode) //change this so this works with any mode
     {
         if(camScript != null)
         {
@@ -100,7 +100,8 @@ public class Player : NetworkBehaviour, IBattlable
         }
     }
 
-    public void RpcToggleCombat(bool toggle)
+    [TargetRpc]
+    public void TargetToggleCombat(bool toggle)
     {
         combat.enabled = toggle;
     }
