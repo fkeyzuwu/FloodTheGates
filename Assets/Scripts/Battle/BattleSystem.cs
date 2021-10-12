@@ -149,16 +149,13 @@ public class BattleSystem : NetworkBehaviour
                 foreach(ArmySlot slot in player.Army.slots)
                 {
                     GameObject creature = Resources.Load<GameObject>(path + slot.creature);
-                    Debug.Log(path + slot.creature);
-                    Debug.Log(creature);
-                    Debug.Log(creature.GetComponent<Creature>());
                     Creature creatureScript = creature.GetComponent<Creature>();
 
                     creature.transform.position = creatureStartPositions[creatureIndex].position;
                     creature.transform.rotation = armyRotations[playerIndex];
 
                     creatureScript.Amount = slot.amount;
-                    creatureScript.OwnerArmy = player.Army;
+                    creatureScript.OwnerID = player.ID;
                     
                     GameObject creatureObj = Instantiate(creature);
                     SceneManager.MoveGameObjectToScene(creatureObj, battleScene);
@@ -169,6 +166,7 @@ public class BattleSystem : NetworkBehaviour
                 }
             }
 
+            playerIndex++;
             creatureIndex = 7;
         }
     }

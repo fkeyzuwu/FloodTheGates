@@ -18,7 +18,8 @@ public class FTGNetworkManager : NetworkManager
 
     public List<Scene> battleScenes { get; } = new List<Scene>();
 
-    int clientIndex;
+    public Dictionary<int, Player> players = new Dictionary<int, Player>();
+    int clientIndex = 0;
 
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
@@ -39,7 +40,10 @@ public class FTGNetworkManager : NetworkManager
 
         base.OnServerAddPlayer(conn);
 
-        conn.identity.GetComponent<Player>().ID = clientIndex; //use this to determine whos using each scene
+        Player conncetedPlayer = conn.identity.GetComponent<Player>();
+        conncetedPlayer.ID = clientIndex; //use this to determine whos using each scene
+        players.Add(clientIndex, conncetedPlayer);
+        Debug.Log($"{clientIndex}, {players[clientIndex]}");
         clientIndex++;
     }
 

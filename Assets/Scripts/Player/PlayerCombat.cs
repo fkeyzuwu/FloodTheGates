@@ -43,7 +43,6 @@ public class PlayerCombat : NetworkBehaviour
             case SyncList<GameObject>.Operation.OP_ADD:
                 CombatCreature creature = new CombatCreature(player, creatureObj, slotIndex);
                 keyCreatureMap.Add(selectKeys[slotIndex], creature);
-                Debug.Log(selectKeys[slotIndex]);
                 break;
             case SyncList<GameObject>.Operation.OP_CLEAR:
                 keyCreatureMap.Clear();
@@ -98,14 +97,20 @@ public class PlayerCombat : NetworkBehaviour
         {
             foreach (KeyCode keyCode in currentlyPressed)
             {
-                keyCreatureMap[keyCode].creature.SpecialAttack(target);
+                if(keyCreatureMap.ContainsKey(keyCode) && keyCreatureMap[keyCode].creatureObj != null)
+                {
+                    keyCreatureMap[keyCode].creature.SpecialAttack(target);
+                }
             }
         }
         else
         {
             foreach (KeyCode keyCode in currentlyPressed)
             {
-                keyCreatureMap[keyCode].creature.Attack(target);
+                if (keyCreatureMap.ContainsKey(keyCode) && keyCreatureMap[keyCode].creatureObj != null)
+                {
+                    keyCreatureMap[keyCode].creature.Attack(target);
+                }
             }
         }
 

@@ -8,16 +8,16 @@ using System;
 
 public abstract class Creature : NetworkBehaviour, ICollectable
 {
-    public int Hp;
-    public int Amount = 1; //default
+    [SyncVar] public int Hp;
+    [SyncVar] public int Amount = 1; //default
 
-    private Army ownerArmy;
+    [SyncVar] public int OwnerID = -1;
     [SerializeField] [SyncVar] private CreatureData data;
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Animator animator;
-    private int armySlotIndex = -1;
+    [SyncVar] private int armySlotIndex = -1;
 
-    bool isAttacking = false;
+    //bool isAttacking = false;
 
     void Start()
     {
@@ -26,10 +26,12 @@ public abstract class Creature : NetworkBehaviour, ICollectable
 
     public virtual void Attack(Creature target) //kinda auto attacks
     {
+        StopAllCoroutines();
         StartCoroutine(MoveToTarget(target));
     }
     public virtual void SpecialAttack(Creature target) // big bonanza attack dependent on the creature
     {
+        StopAllCoroutines();
         StartCoroutine(MoveToTarget(target));
     }
 
@@ -37,21 +39,15 @@ public abstract class Creature : NetworkBehaviour, ICollectable
     {
         GameObject targetObj = target.gameObject;
 
-        while(data.AttackRange <= Vector3.Distance(transform.position, target.transform.position))
+        while (targetObj != null && data.AttackRange <= Vector3.Distance(transform.position, target.transform.position))
         {
-            if(targetObj != null)
-            {
-                agent.SetDestination(target.transform.position);
-                yield return null;
-            }
-            else
-            {
-                agent.SetDestination(transform.position);
-                yield break;
-            }
+            agent.SetDestination(target.transform.position);
+            yield return null;
         }
 
         agent.SetDestination(transform.position);
+        if (target == null) yield break;
+
         StartCoroutine(AttackOverTime(target));
     }
 
@@ -81,14 +77,16 @@ public abstract class Creature : NetworkBehaviour, ICollectable
         targetCreature.Hp -= data.Attack;
         //later make this more complex based on how many units it has, hp defense etc
         Debug.Log(targetCreature.Hp);
-        Debug.Log(targetCreature);
 
         if(targetCreature.Hp <= 0)
         {
-            //need to remove from army some time, maybe at the end of battle? idk nigga
-            targetCreature.ownerArmy.combatArmy.Remove(target);
-            if (targetCreature.ownerArmy.combatArmy.Count > 0)
+            Player targetOwner = ((FTGNetworkManager)NetworkManager.singleton).players[targetCreature.OwnerID];
+            targetOwner.Army.combatArmy.Remove(target);
+            Debug.Log(targetOwner.Army.combatArmy.Count);
+
+            if (targetOwner.Army.combatArmy.Count <= 0)
             {
+                Debug.Log(((FTGNetworkManager)NetworkManager.singleton).players[this.OwnerID] + " won!");
                 //go back to regular scene, update army slots
             }
             NetworkServer.Destroy(target);
@@ -119,11 +117,6 @@ public abstract class Creature : NetworkBehaviour, ICollectable
     public int ArmySlotIndex
     {
         get { return armySlotIndex; }
-    }
-
-    public Army OwnerArmy
-    {
-        get { return ownerArmy; }
-        set { ownerArmy = value; }
+        set { armySlotIndex = value; }
     }
 }
