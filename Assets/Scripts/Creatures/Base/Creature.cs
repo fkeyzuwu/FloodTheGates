@@ -8,12 +8,21 @@ using System;
 
 public abstract class Creature : NetworkBehaviour, ICollectable
 {
+    public int Hp;
+    public int Amount = 1; //default
+
+    private Army ownerArmy;
     [SerializeField] [SyncVar] private CreatureData data;
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Animator animator;
     private int armySlotIndex = -1;
 
     bool isAttacking = false;
+
+    void Start()
+    {
+        Hp = data.HpPerUnit;
+    }
 
     public virtual void Attack(Creature target) //kinda auto attacks
     {
@@ -48,25 +57,43 @@ public abstract class Creature : NetworkBehaviour, ICollectable
 
     IEnumerator AttackOverTime(Creature target)
     {
-        while(target.gameObject != null)
+        float timer = 0f;
+
+        while(target != null && target.gameObject != null)
         {
-            CmdAttackCreature(target.gameObject);
-            yield return new WaitForSeconds(data.AttackSpeed);
+            if(timer >= data.AttackSpeed)
+            {
+                CmdAttackCreature(target.gameObject);
+                timer = 0f;
+            }
+
+            timer += Time.deltaTime;
+            yield return null;
         }
     }
 
     [Command]
     private void CmdAttackCreature(GameObject target)
     {
-        Creature targetCreature = target.GetComponent<Creature>();
-        targetCreature.data.Hp -= data.Attack;
-        Debug.Log(targetCreature.data.Hp);
+        if(target == null) return;
 
-        if(targetCreature.data.Hp == 0)
-        {
-            NetworkServer.UnSpawn(target);
-        }
+        Creature targetCreature = target.GetComponent<Creature>();
+        targetCreature.Hp -= data.Attack;
         //later make this more complex based on how many units it has, hp defense etc
+        Debug.Log(targetCreature.Hp);
+        Debug.Log(targetCreature);
+
+        if(targetCreature.Hp <= 0)
+        {
+            //need to remove from army some time, maybe at the end of battle? idk nigga
+            targetCreature.ownerArmy.combatArmy.Remove(target);
+            if (targetCreature.ownerArmy.combatArmy.Count > 0)
+            {
+                //go back to regular scene, update army slots
+            }
+            NetworkServer.Destroy(target);
+        }
+        
     }
 
     public void Collect(Player player)
@@ -92,5 +119,11 @@ public abstract class Creature : NetworkBehaviour, ICollectable
     public int ArmySlotIndex
     {
         get { return armySlotIndex; }
+    }
+
+    public Army OwnerArmy
+    {
+        get { return ownerArmy; }
+        set { ownerArmy = value; }
     }
 }

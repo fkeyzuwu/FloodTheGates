@@ -5,14 +5,18 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Create Creature")]
 public class CreatureData : ScriptableObject
 {
+    [Header("Name")]
     public string Name = "Default";
-    public int Amount = 1;
 
-    public int Hp = 10;
+    [Header("Stats")]
+    public int HpPerUnit = 10;
     public int Attack = 1;
     public float AttackRange = 3.0f;
     public float AttackSpeed = 1.0f;
 
-    public int Tier;
+    [Header("Info")]
+    public int Tier = 1;
     public Faction Faction;
+
+  
 }

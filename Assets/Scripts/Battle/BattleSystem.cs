@@ -149,9 +149,17 @@ public class BattleSystem : NetworkBehaviour
                 foreach(ArmySlot slot in player.Army.slots)
                 {
                     GameObject creature = Resources.Load<GameObject>(path + slot.creature);
-                    creature.GetComponent<Creature>().Data.Amount = slot.amount;
+                    Debug.Log(path + slot.creature);
+                    Debug.Log(creature);
+                    Debug.Log(creature.GetComponent<Creature>());
+                    Creature creatureScript = creature.GetComponent<Creature>();
+
                     creature.transform.position = creatureStartPositions[creatureIndex].position;
                     creature.transform.rotation = armyRotations[playerIndex];
+
+                    creatureScript.Amount = slot.amount;
+                    creatureScript.OwnerArmy = player.Army;
+                    
                     GameObject creatureObj = Instantiate(creature);
                     SceneManager.MoveGameObjectToScene(creatureObj, battleScene);
                     player.Army.combatArmy.Add(creatureObj);

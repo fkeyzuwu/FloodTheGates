@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Elf Archer
   m_EditorClassIdentifier: 
   Name: Elf Archer
-  Amount: 1
-  Hp: 22
+  HpPerUnit: 10
+  Attack: 1
+  AttackRange: 3
+  AttackSpeed: 1
   Tier: 1
   Faction: 4
