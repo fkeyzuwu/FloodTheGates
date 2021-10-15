@@ -118,9 +118,9 @@ public class BattleSystem : NetworkBehaviour
             if(battler is Player)
             {
                 Player player = battler as Player;
-                player.RpcSetPosition(battlerStartPositions[i].position);
-                player.RpcSetRotation(armyRotations[i]);
-                player.RpcSetBattleCamera();
+                player.TargetSetPosition(battlerStartPositions[i].position);
+                player.TargetSetRotation(armyRotations[i]);
+                player.TargetSetCameraMode(CameraControlMode.Battle);
             }
             else
             {
@@ -149,18 +149,24 @@ public class BattleSystem : NetworkBehaviour
                 foreach(ArmySlot slot in player.Army.slots)
                 {
                     GameObject creature = Resources.Load<GameObject>(path + slot.creature);
-                    creature.GetComponent<Creature>().Data.Amount = slot.amount;
+                    Creature creatureScript = creature.GetComponent<Creature>();
+
                     creature.transform.position = creatureStartPositions[creatureIndex].position;
                     creature.transform.rotation = armyRotations[playerIndex];
+
+                    creatureScript.Amount = slot.amount;
+                    creatureScript.OwnerID = player.ID;
+                    
                     GameObject creatureObj = Instantiate(creature);
                     SceneManager.MoveGameObjectToScene(creatureObj, battleScene);
-                    //make their positions and rotations based on whos players who
+                    player.Army.combatArmy.Add(creatureObj);
                     NetworkServer.Spawn(creatureObj, player.connectionToClient);
 
                     creatureIndex++;
                 }
             }
 
+            playerIndex++;
             creatureIndex = 7;
         }
     }

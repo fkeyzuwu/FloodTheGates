@@ -12,6 +12,7 @@ public class Player : NetworkBehaviour, IBattlable
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private PlayerResources resources;
     [SerializeField] private Army army;
+    [SerializeField] private PlayerCombat combat;
 
     [SerializeField] private PlayerMovement movement;
 
@@ -78,24 +79,27 @@ public class Player : NetworkBehaviour, IBattlable
         BattleSystem.Instance.CreateBattle(netId1, netId2);
     }
 
-    [ClientRpc]
-    public void RpcSetPosition(Vector3 position)
+    [TargetRpc]
+    public void TargetSetPosition(Vector3 position)
     {
         transform.position = position;
     }
 
-    [ClientRpc]
-    public void RpcSetRotation(Quaternion rotation)
+    [TargetRpc]
+    public void TargetSetRotation(Quaternion rotation)
     {
         transform.rotation = rotation;
     }
 
-    [ClientRpc]
-    public void RpcSetBattleCamera()
+    [TargetRpc]
+    public void TargetSetCameraMode(CameraControlMode controlMode) //change this so this works with any mode
     {
-        if(camScript != null)
-        {
-            camScript.SetupCamera(CameraControlMode.Battle);
-        }
+        camScript.SetupCamera(controlMode);
+    }
+
+    [TargetRpc]
+    public void TargetToggleCombat(bool toggle)
+    {
+        combat.enabled = toggle;
     }
 }

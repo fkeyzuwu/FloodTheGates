@@ -190,6 +190,7 @@ MonoBehaviour:
   inventory: {fileID: -2031298119977070722}
   resources: {fileID: 8553621882688620352}
   army: {fileID: 5960317242667142824}
+  combat: {fileID: -1098201881746857352}
   movement: {fileID: 5562204782134475557}
 --- !u!114 &8553621882688620352
 MonoBehaviour:
@@ -263,14 +264,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7461996623248191986}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 586664514ea534443b1fde417c5fc82b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  specialAttack: 0
+  player: {fileID: 5439963493735296208}
+  playerArmy: {fileID: 5960317242667142824}
 --- !u!114 &5960317242667142824
 MonoBehaviour:
   m_ObjectHideFlags: 0
