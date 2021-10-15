@@ -9,8 +9,8 @@ public class CreatureData : ScriptableObject
     public string Name = "Default";
 
     [Header("Stats")]
-    public int HpPerUnit = 10;
-    public int Attack = 1;
+    public int HealthPerUnit = 10;
+    public int AttackPerUnit = 1;
     public float AttackRange = 3.0f;
     public float AttackSpeed = 1.0f;
 

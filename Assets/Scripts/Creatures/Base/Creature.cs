@@ -8,7 +8,12 @@ using System;
 
 public abstract class Creature : NetworkBehaviour, ICollectable
 {
-    [SyncVar] public int Hp;
+    public int Health => (HealthPerUnit * Amount) - (HealthPerUnit - CurrentUnitHealth);
+    public int Attack => AttackPerUnit * Amount;
+    public int HealthPerUnit => data.HealthPerUnit;
+    public int AttackPerUnit => data.AttackPerUnit;
+    [SyncVar] public int CurrentUnitHealth;
+
     [SyncVar] public int Amount = 1; //default
 
     [SyncVar] public int OwnerID = -1;
@@ -17,19 +22,17 @@ public abstract class Creature : NetworkBehaviour, ICollectable
     [SerializeField] private Animator animator;
     [SyncVar] private int armySlotIndex = -1;
 
-    //bool isAttacking = false;
-
     void Start()
     {
-        Hp = data.HpPerUnit;
+        CurrentUnitHealth = HealthPerUnit;
     }
 
-    public virtual void Attack(Creature target) //kinda auto attacks
+    public virtual void AttackCreature(Creature target) //kinda auto attacks
     {
         StopAllCoroutines();
         StartCoroutine(MoveToTarget(target));
     }
-    public virtual void SpecialAttack(Creature target) // big bonanza attack dependent on the creature
+    public virtual void SpecialAttackCreature(Creature target) // big bonanza attack dependent on the creature
     {
         StopAllCoroutines();
         StartCoroutine(MoveToTarget(target));
@@ -74,24 +77,38 @@ public abstract class Creature : NetworkBehaviour, ICollectable
         if(target == null) return;
 
         Creature targetCreature = target.GetComponent<Creature>();
-        targetCreature.Hp -= data.Attack;
-        //later make this more complex based on how many units it has, hp defense etc
-        Debug.Log(targetCreature.Hp);
 
-        if(targetCreature.Hp <= 0)
-        {
-            Player targetOwner = ((FTGNetworkManager)NetworkManager.singleton).players[targetCreature.OwnerID];
-            targetOwner.Army.combatArmy.Remove(target);
-            Debug.Log(targetOwner.Army.combatArmy.Count);
+        int damage = Attack; // TODO: Update Damage forumla with defense stat
+        int healthAfterAttack = targetCreature.Health - damage;
 
-            if (targetOwner.Army.combatArmy.Count <= 0)
-            {
-                Debug.Log(((FTGNetworkManager)NetworkManager.singleton).players[this.OwnerID] + " won!");
-                //go back to regular scene, update army slots
-            }
-            NetworkServer.Destroy(target);
-        }
         
+        if (healthAfterAttack <= 0)
+        {
+            KillCreature(targetCreature);
+            Debug.Log("Killed");
+        }
+        else
+        {
+            int localAmount = (int)Math.Ceiling(Convert.ToDouble(healthAfterAttack) / Convert.ToDouble(targetCreature.HealthPerUnit));
+            targetCreature.CurrentUnitHealth = healthAfterAttack - (targetCreature.HealthPerUnit * Math.Abs(localAmount - 1));
+            targetCreature.Amount = localAmount;
+            Debug.Log("Amount: " + localAmount + "\nCurrent Unit Health: " + targetCreature.CurrentUnitHealth);
+        }
+    }
+
+    [Server]
+    private void KillCreature(Creature creature)
+    {
+        var manager = ((FTGNetworkManager)NetworkManager.singleton);
+        Player creatureOwner = manager.players[creature.OwnerID];
+        creatureOwner.Army.combatArmy.Remove(creature.gameObject);
+        NetworkServer.Destroy(creature.gameObject);
+
+        if (creatureOwner.Army.combatArmy.Count <= 0)
+        {
+            Debug.Log(manager.players[this.OwnerID] + " won!");
+            //go back to regular scene, update army slots
+        }
     }
 
     public void Collect(Player player)

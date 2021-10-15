@@ -99,7 +99,7 @@ public class PlayerCombat : NetworkBehaviour
             {
                 if(keyCreatureMap.ContainsKey(keyCode) && keyCreatureMap[keyCode].creatureObj != null)
                 {
-                    keyCreatureMap[keyCode].creature.SpecialAttack(target);
+                    keyCreatureMap[keyCode].creature.SpecialAttackCreature(target);
                 }
             }
         }
@@ -109,7 +109,7 @@ public class PlayerCombat : NetworkBehaviour
             {
                 if (keyCreatureMap.ContainsKey(keyCode) && keyCreatureMap[keyCode].creatureObj != null)
                 {
-                    keyCreatureMap[keyCode].creature.Attack(target);
+                    keyCreatureMap[keyCode].creature.AttackCreature(target);
                 }
             }
         }

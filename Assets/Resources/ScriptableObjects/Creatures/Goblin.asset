@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd1802fcd50f73c4eb2c97699f55a758, type: 3}
-  m_Name: Elf Archer
+  m_Name: Goblin
   m_EditorClassIdentifier: 
-  Name: Elf Archer
-  HealthPerUnit: 20
+  Name: Goblin
+  HealthPerUnit: 15
   AttackPerUnit: 5
   AttackRange: 3
   AttackSpeed: 1
   Tier: 1
-  Faction: 4
+  Faction: 2
