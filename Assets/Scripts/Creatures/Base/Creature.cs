@@ -8,6 +8,7 @@ using System;
 
 public abstract class Creature : NetworkBehaviour, ICollectable
 {
+    private static string creatureDataPath = "ScriptableObjects\\Creatures\\";
     public int Health => (HealthPerUnit * Amount) - (HealthPerUnit - CurrentUnitHealth);
     public int Attack => AttackPerUnit * Amount;
     public int HealthPerUnit => data.HealthPerUnit;
@@ -17,13 +18,21 @@ public abstract class Creature : NetworkBehaviour, ICollectable
     [SyncVar] public int Amount = 1; //default
 
     [SyncVar] public int OwnerID = -1;
-    [SerializeField] [SyncVar] private CreatureData data;
-    [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private Animator animator;
+    [SyncVar] private CreatureData data;
+    private NavMeshAgent agent;
+    //private Animator animator; //Get Animator later
+    private CreatureBattleUI ui;
+    private CreatureOutliner outliner;
     [SyncVar] private int armySlotIndex = -1;
 
     void Start()
     {
+        string prefabName = name.Replace("(Clone)", "");
+        data = Resources.Load<CreatureData>(creatureDataPath + prefabName);
+        agent = GetComponent<NavMeshAgent>();
+        outliner = GetComponent<CreatureOutliner>();
+        ui = GetComponentInChildren<CreatureBattleUI>();
+
         CurrentUnitHealth = HealthPerUnit;
     }
 
@@ -118,17 +127,22 @@ public abstract class Creature : NetworkBehaviour, ICollectable
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        
+        //activate stats window
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        
+        //deactivate stats window
     }
 
     public CreatureData Data
     {
         get { return data; }
+    }
+
+    public CreatureOutliner Outliner
+    {
+        get { return outliner; }
     }
 
     public int ArmySlotIndex

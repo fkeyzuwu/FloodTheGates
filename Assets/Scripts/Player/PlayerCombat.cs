@@ -68,11 +68,13 @@ public class PlayerCombat : NetworkBehaviour
             if (Input.GetKeyDown(keyCode))
             {
                 currentlyPressed.Add(keyCode);
+                keyCreatureMap[keyCode].creature.Outliner.Activate();
             }
 
             if (Input.GetKeyUp(keyCode))
             {
                 currentlyPressed.Remove(keyCode);
+                keyCreatureMap[keyCode].creature.Outliner.Deactivate();
             }
         }
 
@@ -93,23 +95,19 @@ public class PlayerCombat : NetworkBehaviour
 
         if (target == null) return;
 
-        if (isSpecialPressed)
+        foreach (KeyCode keyCode in currentlyPressed)
         {
-            foreach (KeyCode keyCode in currentlyPressed)
+            if (keyCreatureMap.ContainsKey(keyCode) && keyCreatureMap[keyCode].creatureObj != null)
             {
-                if(keyCreatureMap.ContainsKey(keyCode) && keyCreatureMap[keyCode].creatureObj != null)
+                if (isSpecialPressed)
                 {
                     keyCreatureMap[keyCode].creature.SpecialAttackCreature(target);
+                    keyCreatureMap[keyCode].creature.Outliner.Deactivate();
                 }
-            }
-        }
-        else
-        {
-            foreach (KeyCode keyCode in currentlyPressed)
-            {
-                if (keyCreatureMap.ContainsKey(keyCode) && keyCreatureMap[keyCode].creatureObj != null)
+                else
                 {
                     keyCreatureMap[keyCode].creature.AttackCreature(target);
+                    keyCreatureMap[keyCode].creature.Outliner.Deactivate();
                 }
             }
         }
