@@ -17,6 +17,4 @@ public class CreatureData : ScriptableObject
     [Header("Info")]
     public int Tier = 1;
     public Faction Faction;
-
-  
 }

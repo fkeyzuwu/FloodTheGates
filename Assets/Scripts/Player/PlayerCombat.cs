@@ -68,13 +68,19 @@ public class PlayerCombat : NetworkBehaviour
             if (Input.GetKeyDown(keyCode))
             {
                 currentlyPressed.Add(keyCode);
-                keyCreatureMap[keyCode].creature.Outliner.Activate();
+                if(keyCreatureMap[keyCode].creature != null)
+                {
+                    keyCreatureMap[keyCode].creature.Outliner.Activate();
+                }
             }
 
             if (Input.GetKeyUp(keyCode))
             {
                 currentlyPressed.Remove(keyCode);
-                keyCreatureMap[keyCode].creature.Outliner.Deactivate();
+                if (keyCreatureMap[keyCode].creature != null)
+                {
+                    keyCreatureMap[keyCode].creature.Outliner.Deactivate();
+                }
             }
         }
 

@@ -16,14 +16,14 @@ public class Resource : NetworkBehaviour, ICollectable
         get { return name; }
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    void OnMouseEnter()
     {
-        //add cursor change
+        //change cursor
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    void OnMouseExit()
     {
-        //add cursor change
+        //change cursor
     }
 
     public void Collect(Player player)
