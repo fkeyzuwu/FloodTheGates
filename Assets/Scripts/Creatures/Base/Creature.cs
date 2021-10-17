@@ -9,6 +9,7 @@ using System;
 public abstract class Creature : NetworkBehaviour, ICollectable
 {
     [SerializeField] private string creatureName;
+    [SyncVar(hook = nameof(OnKeyCodeChanged))] public KeyCode keyCode = KeyCode.None;
     private static string creatureDataPath = "ScriptableObjects\\Creatures\\";
     [SyncVar] public int OwnerID = -1;
     [SyncVar] private CreatureData data;
@@ -166,6 +167,13 @@ public abstract class Creature : NetworkBehaviour, ICollectable
         ui.UpdateAttackText(Attack);
     }
 
+    private void OnKeyCodeChanged(KeyCode _, KeyCode newKeyCode)
+    {
+        if (ui == null) return;
+
+        ui.UpdateKeyCodeText(newKeyCode);
+    }
+
     #endregion
 
     private void UpdateCreatureUI()
@@ -177,5 +185,6 @@ public abstract class Creature : NetworkBehaviour, ICollectable
         ui.UpdateAttackPerUnitText(AttackPerUnit);
         ui.UpdateAttackSpeedText(data.AttackSpeed);
         ui.UpdateCurrentUnitHealthText(CurrentUnitHealth, HealthPerUnit);
+        ui.UpdateKeyCodeText(keyCode);
     }
 }

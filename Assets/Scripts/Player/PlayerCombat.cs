@@ -41,7 +41,7 @@ public class PlayerCombat : NetworkBehaviour
         switch (op)
         {
             case SyncList<GameObject>.Operation.OP_ADD:
-                CombatCreature creature = new CombatCreature(player, creatureObj, slotIndex);
+                CombatCreature creature = new CombatCreature(player, creatureObj, slotIndex, selectKeys[slotIndex]);
                 keyCreatureMap.Add(selectKeys[slotIndex], creature);
                 break;
             case SyncList<GameObject>.Operation.OP_CLEAR:

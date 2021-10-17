@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Mirror;
 
 public class CreatureBattleUI : MonoBehaviour
 {
+    private Creature creature;
+
+    [Header("Stats Window")]
     [SerializeField] private GameObject statsWindow;
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI attackText;
@@ -13,7 +17,21 @@ public class CreatureBattleUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI attackSpeedText;
     [SerializeField] private TextMeshProUGUI currentUnitHealthText;
 
+    [Header("Amount")]
     [SerializeField] private TextMeshProUGUI amountText;
+
+    [Header("Key")]
+    [SerializeField] private GameObject keyTextObj;
+    [SerializeField] private TextMeshProUGUI keyText;
+
+    void Start()
+    {
+        creature = GetComponentInParent<Creature>();
+        if(creature != null)
+        {
+            keyTextObj.SetActive(creature.hasAuthority);
+        }
+    }
 
     public void ToggleStatsWindow(bool toggle)
     {
@@ -53,5 +71,10 @@ public class CreatureBattleUI : MonoBehaviour
     public void UpdateAmountText(int amount)
     {
         amountText.text = amount.ToString();
+    }
+
+    public void UpdateKeyCodeText(KeyCode keycode)
+    {
+        keyText.text = keycode.ToString();
     }
 }
