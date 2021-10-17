@@ -8,23 +8,35 @@ using System;
 
 public abstract class Creature : NetworkBehaviour, ICollectable
 {
-    public int Health => (HealthPerUnit * Amount) - (HealthPerUnit - CurrentUnitHealth);
-    public int Attack => AttackPerUnit * Amount;
+    [SerializeField] private string creatureName;
+    [SyncVar(hook = nameof(OnKeyCodeChanged))] public KeyCode keyCode = KeyCode.None;
+    private static string creatureDataPath = "ScriptableObjects\\Creatures\\";
+    [SyncVar] public int OwnerID = -1;
+    [SyncVar] private CreatureData data;
+    private NavMeshAgent agent;
+    //private Animator animator; //Get Animator later
+    private CreatureBattleUI ui;
+    private CreatureOutliner outliner;
     public int HealthPerUnit => data.HealthPerUnit;
     public int AttackPerUnit => data.AttackPerUnit;
-    [SyncVar] public int CurrentUnitHealth;
+    public int Health => (HealthPerUnit * Amount) - (HealthPerUnit - CurrentUnitHealth);
+    public int Attack => AttackPerUnit * Amount;
+    
+    [SyncVar(hook = nameof(OnCurrentUnitHealthChanged))] public int CurrentUnitHealth;
+    [SyncVar(hook = nameof(OnAmountChanged))] public int Amount = 1; //default
 
-    [SyncVar] public int Amount = 1; //default
-
-    [SyncVar] public int OwnerID = -1;
-    [SerializeField] [SyncVar] private CreatureData data;
-    [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private Animator animator;
-    [SyncVar] private int armySlotIndex = -1;
+    //[SyncVar] private int armySlotIndex = -1;
 
     void Start()
     {
+        data = Resources.Load<CreatureData>(creatureDataPath + creatureName);
+        agent = GetComponent<NavMeshAgent>();
+        outliner = GetComponent<CreatureOutliner>();
+        ui = GetComponentInChildren<CreatureBattleUI>();
+
         CurrentUnitHealth = HealthPerUnit;
+
+        UpdateCreatureUI();
     }
 
     public virtual void AttackCreature(Creature target) //kinda auto attacks
@@ -80,7 +92,6 @@ public abstract class Creature : NetworkBehaviour, ICollectable
 
         int damage = Attack; // TODO: Update Damage forumla with defense stat
         int healthAfterAttack = targetCreature.Health - damage;
-
         
         if (healthAfterAttack <= 0)
         {
@@ -111,29 +122,69 @@ public abstract class Creature : NetworkBehaviour, ICollectable
         }
     }
 
+    #region Temp
     public void Collect(Player player)
     {
         player.Army.AddCreatureToArmy(this);
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        
-    }
+    #endregion
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        
-    }
-
+    #region Getters & Setters
     public CreatureData Data
     {
         get { return data; }
     }
 
-    public int ArmySlotIndex
+    public CreatureOutliner Outliner
     {
-        get { return armySlotIndex; }
-        set { armySlotIndex = value; }
+        get { return outliner; }
+    }
+
+    //public int ArmySlotIndex
+    //{
+    //    get { return armySlotIndex; }
+    //    set { armySlotIndex = value; }
+    //}
+
+    #endregion
+
+    #region Hook Methods
+
+    private void OnCurrentUnitHealthChanged(int _, int newCurrentUnitHealth)
+    {
+        if (ui == null) return;
+
+        ui.UpdateCurrentUnitHealthText(newCurrentUnitHealth, HealthPerUnit);
+        ui.UpdateHealthText(Health);
+    }
+
+    private void OnAmountChanged(int _, int newAmount)
+    {
+        if (ui == null) return;
+
+        ui.UpdateAmountText(newAmount);
+        ui.UpdateAttackText(Attack);
+    }
+
+    private void OnKeyCodeChanged(KeyCode _, KeyCode newKeyCode)
+    {
+        if (ui == null) return;
+
+        ui.UpdateKeyCodeText(newKeyCode);
+    }
+
+    #endregion
+
+    private void UpdateCreatureUI()
+    {
+        ui.UpdateAmountText(Amount);
+        ui.UpdateHealthText(Health);
+        ui.UpdateAttackText(Attack);
+        ui.UpdateHealthPerUnitText(HealthPerUnit);
+        ui.UpdateAttackPerUnitText(AttackPerUnit);
+        ui.UpdateAttackSpeedText(data.AttackSpeed);
+        ui.UpdateCurrentUnitHealthText(CurrentUnitHealth, HealthPerUnit);
+        ui.UpdateKeyCodeText(keyCode);
     }
 }
