@@ -15,9 +15,10 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   creatureName: Goblin
+  keyCode: 0
   OwnerID: 0
   CurrentUnitHealth: 0
-  Amount: 1
+  Amount: 10
 --- !u!1001 &7456741206571597749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -87,11 +88,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5361427890599300274, guid: 4bfa68e34e771fa479c07f3630096d6d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5361427890599300274, guid: 4bfa68e34e771fa479c07f3630096d6d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 350
+      value: 341
+      objectReference: {fileID: 0}
+    - target: {fileID: 5361427890599300274, guid: 4bfa68e34e771fa479c07f3630096d6d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.00000004371139
+      objectReference: {fileID: 0}
+    - target: {fileID: 5361427890599300274, guid: 4bfa68e34e771fa479c07f3630096d6d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5944655238302362902, guid: 4bfa68e34e771fa479c07f3630096d6d, type: 3}

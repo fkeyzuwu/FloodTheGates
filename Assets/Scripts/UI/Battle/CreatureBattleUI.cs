@@ -27,7 +27,11 @@ public class CreatureBattleUI : MonoBehaviour
     void Start()
     {
         creature = GetComponentInParent<Creature>();
-        if(creature != null)
+        if (creature.isServerOnly)
+        {
+            keyTextObj.SetActive(false);
+        }
+        else
         {
             keyTextObj.SetActive(creature.hasAuthority);
         }

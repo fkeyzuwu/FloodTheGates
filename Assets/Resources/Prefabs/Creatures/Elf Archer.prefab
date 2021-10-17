@@ -15,7 +15,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   creatureName: Elf Archer
-  OwnerID: 1
+  keyCode: 0
+  OwnerID: 0
   CurrentUnitHealth: 0
   Amount: 1
 --- !u!1001 &1622830522136242503
@@ -91,7 +92,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5361427890599300274, guid: 4bfa68e34e771fa479c07f3630096d6d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 350
+      value: 356
       objectReference: {fileID: 0}
     - target: {fileID: 5361427890599300274, guid: 4bfa68e34e771fa479c07f3630096d6d, type: 3}
       propertyPath: m_LocalRotation.w
