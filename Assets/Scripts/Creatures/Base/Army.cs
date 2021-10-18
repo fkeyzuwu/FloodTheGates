@@ -16,20 +16,16 @@ public class Army : NetworkBehaviour
     [Command]
     private void CmdAddCreatureToArmy(string creatureName, int amount)
     {
-        Debug.Log(creatureName);
-
         if (slots.Count == 7) //Out of bounds
         {
-            Debug.Log("Max Army");
             return;
         }
 
         slots.Add(new ArmySlot(creatureName, amount));
-        Debug.Log($"{slots[slots.Count - 1].creature}, {slots[slots.Count - 1].amount}");
     }
 
     [Server]
-    private void UpdateArmy() //call this at the end of battle
+    public void UpdateArmy() //call this at the end of battle
     {
         slots.Clear();
 

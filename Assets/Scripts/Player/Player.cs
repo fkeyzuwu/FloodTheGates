@@ -8,6 +8,8 @@ using System;
 public class Player : NetworkBehaviour, IBattlable
 {
     [SyncVar] private int id;
+    [SyncVar] public Vector3 positionBeforeBattle;
+    [SyncVar] public Quaternion rotationBeforeBattle;
 
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private PlayerResources resources;
@@ -34,6 +36,11 @@ public class Player : NetworkBehaviour, IBattlable
     public Army Army
     {
         get { return army; }
+    }
+
+    public PlayerCombat Combat
+    {
+        get { return combat; }
     }
     
     public PlayerMovement Movement
@@ -68,8 +75,7 @@ public class Player : NetworkBehaviour, IBattlable
 
     public void StartBattle(IBattlable enemy)
     {
-        NetworkBehaviour enemyNb = enemy as NetworkBehaviour;
-        uint enemyNetId = enemyNb.GetComponent<NetworkIdentity>().netId;
+        uint enemyNetId = ((NetworkBehaviour)enemy).GetComponent<NetworkIdentity>().netId;
         CmdCreateBattle(netId, enemyNetId);
     }
 
@@ -80,15 +86,9 @@ public class Player : NetworkBehaviour, IBattlable
     }
 
     [TargetRpc]
-    public void TargetSetPosition(Vector3 position)
+    public void TargetSetPositionAndRotation(Vector3 position, Quaternion rotation)
     {
-        transform.position = position;
-    }
-
-    [TargetRpc]
-    public void TargetSetRotation(Quaternion rotation)
-    {
-        transform.rotation = rotation;
+        transform.SetPositionAndRotation(position, rotation);
     }
 
     [TargetRpc]
@@ -101,5 +101,11 @@ public class Player : NetworkBehaviour, IBattlable
     public void TargetToggleCombat(bool toggle)
     {
         combat.enabled = toggle;
+    }
+
+    [TargetRpc]
+    public void TargetDisconnect()
+    {
+        NetworkClient.Disconnect();
     }
 }

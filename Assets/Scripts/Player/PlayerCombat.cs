@@ -10,6 +10,7 @@ public class PlayerCombat : NetworkBehaviour
     [SerializeField] private Player player;
     [SerializeField] private Army playerArmy;
     private new Camera camera;
+    public Battle currentBattle = null;
 
     private KeyCode attack = KeyCode.Mouse1;
     private KeyCode special = KeyCode.LeftShift;

@@ -118,6 +118,9 @@ public abstract class Creature : NetworkBehaviour, ICollectable
         if (creatureOwner.Army.combatArmy.Count <= 0)
         {
             Debug.Log(manager.players[this.OwnerID] + " won!");
+            Player winner = manager.players[this.OwnerID];
+            BattleSystem.Instance.EndBattle(creatureOwner.Combat.currentBattle, winner.netId, creatureOwner.netId);
+            //BattleSystem.Instance.EndBattle()
             //go back to regular scene, update army slots
         }
     }

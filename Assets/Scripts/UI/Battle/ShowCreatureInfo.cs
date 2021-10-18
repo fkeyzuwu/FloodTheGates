@@ -11,14 +11,12 @@ public class ShowCreatureInfo : MonoBehaviour
 
     public void OnMouseEnter()
     {
-        print("pointer on creature");
         isMouseOnCreature = true;
         StartCoroutine(WaitToToToggleStats());
     }
 
     public void OnMouseExit()
     {
-        print("pointer NOT on creature");
         isMouseOnCreature = false;
         ui.ToggleStatsWindow(false);
         //change cursor
@@ -30,7 +28,6 @@ public class ShowCreatureInfo : MonoBehaviour
 
         if (isMouseOnCreature)
         {
-            print("Activate");
             ui.ToggleStatsWindow(true);
             //change cursor
         }
