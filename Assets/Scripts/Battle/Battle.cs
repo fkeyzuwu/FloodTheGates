@@ -111,6 +111,10 @@ public class Battle
             winnerPlayer.Army.UpdateArmy();
             DestroyBattleCreatures(winnerPlayer);
             ReturnPlayerToMap(winnerPlayer);
+            if(loser is Player)
+            {
+                UpdateWinnerItems(winnerPlayer, loser as Player);
+            }
         }
         else
         {
@@ -127,6 +131,19 @@ public class Battle
         {
             NetworkServer.Destroy(((NetworkBehaviour)loser).gameObject);
         }
+    }
+
+    private void UpdateWinnerItems(Player winnerPlayer, Player loserPlayer)
+    {
+        var playerResources = winnerPlayer.Resources;
+        var loserResources = loserPlayer.Resources;
+
+        foreach (string resourceName in playerResources.Resources.Keys.ToList())
+        {
+            playerResources.Resources[resourceName] += loserResources.Resources[resourceName];
+        }
+
+        //later update here artifacts
     }
 
     private void DestroyBattleCreatures(Player player)
@@ -160,6 +177,7 @@ public class Battle
     private void SendPlayerToMenu(Player player)
     {
         NetworkServer.DestroyPlayerForConnection(player.connectionToClient);
+        //make player spectate or something idk
     }
 
     #region Getters & Setters

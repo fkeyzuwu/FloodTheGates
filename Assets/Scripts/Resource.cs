@@ -28,7 +28,7 @@ public class Resource : NetworkBehaviour, ICollectable
 
     public void Collect(Player player)
     {
-        player.Resources.AddResource(name, amount, netId);
+        player.Resources.CmdAddResource(name, amount, netId);
     }
     
     [Server]

@@ -9,9 +9,9 @@ public class PlayerResources : NetworkBehaviour
     [SerializeField] private Resource[] resourcePrefabs;
     private ResourceBar resourceUI;
 
-    void Awake()
+    public override void OnStartServer()
     {
-        foreach(Resource resource in resourcePrefabs)
+        foreach (Resource resource in resourcePrefabs)
         {
             Resources.Add(resource.Name, 0);
         }
@@ -20,25 +20,27 @@ public class PlayerResources : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         resourceUI = FindObjectOfType<ResourceBar>();
+        Resources.Callback += OnResourcesChanged;
     }
 
-    public void AddResource(string name, int amount, uint resourceNetId)
+    private void OnResourcesChanged(SyncIDictionary<string, int>.Operation op, string key, int item)
     {
-        CmdAddResource(name, amount, resourceNetId);
+        switch (op)
+        {
+            case SyncIDictionary<string, int>.Operation.OP_SET:
+                resourceUI.UpdateResourceUI(key, item);
+                break;
+            default:
+                break;
+        }
     }
 
     [Command]
-    private void CmdAddResource(string name, int amount, uint resourceNetId)
+    public void CmdAddResource(string name, int amount, uint resourceNetId)
     {
         Resources[name] += amount;
-        TargetUpdateResourceUI(name, Resources[name]);
         GameObject resource = NetworkServer.spawned[resourceNetId].gameObject;
         EntityManager.Instance.RemoveEntity(resource, resourceNetId);
-    }
-
-    public void SubtractResource(string name, int amount)
-    {
-        CmdSubtractResource(name, amount);
     }
 
     [Command]
@@ -49,11 +51,5 @@ public class PlayerResources : NetworkBehaviour
         {
             Resources[name] = 0;
         }
-    }
-
-    [TargetRpc]
-    private void TargetUpdateResourceUI(string name, int amount)
-    {
-        resourceUI.UpdateResourceUI(name, amount);
     }
 }

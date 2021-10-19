@@ -96,14 +96,12 @@ public abstract class Creature : NetworkBehaviour, ICollectable
         if (healthAfterAttack <= 0)
         {
             KillCreature(targetCreature);
-            Debug.Log("Killed");
         }
         else
         {
             int localAmount = (int)Math.Ceiling(Convert.ToDouble(healthAfterAttack) / Convert.ToDouble(targetCreature.HealthPerUnit));
             targetCreature.CurrentUnitHealth = healthAfterAttack - (targetCreature.HealthPerUnit * Math.Abs(localAmount - 1));
             targetCreature.Amount = localAmount;
-            Debug.Log("Amount: " + localAmount + "\nCurrent Unit Health: " + targetCreature.CurrentUnitHealth);
         }
     }
 
@@ -120,8 +118,6 @@ public abstract class Creature : NetworkBehaviour, ICollectable
             Debug.Log($"{manager.players[this.OwnerID]} won the battle against {manager.players[creature.OwnerID]}!");
             Player winner = manager.players[this.OwnerID];
             BattleSystem.Instance.EndBattle(creatureOwner.Combat.currentBattle, winner.netId, creatureOwner.netId);
-            //BattleSystem.Instance.EndBattle()
-            //go back to regular scene, update army slots
         }
     }
 
