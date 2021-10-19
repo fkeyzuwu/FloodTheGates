@@ -159,7 +159,7 @@ public class Battle
 
     private void SendPlayerToMenu(Player player)
     {
-        player.TargetDisconnect(); //later take back to offline menu scene or something, or be able to spectate
+        NetworkServer.DestroyPlayerForConnection(player.connectionToClient);
     }
 
     #region Getters & Setters

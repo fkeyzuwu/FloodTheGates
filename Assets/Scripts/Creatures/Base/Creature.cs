@@ -117,7 +117,7 @@ public abstract class Creature : NetworkBehaviour, ICollectable
 
         if (creatureOwner.Army.combatArmy.Count <= 0)
         {
-            Debug.Log(manager.players[this.OwnerID] + " won!");
+            Debug.Log($"{manager.players[this.OwnerID]} won the battle against {manager.players[creature.OwnerID]}!");
             Player winner = manager.players[this.OwnerID];
             BattleSystem.Instance.EndBattle(creatureOwner.Combat.currentBattle, winner.netId, creatureOwner.netId);
             //BattleSystem.Instance.EndBattle()

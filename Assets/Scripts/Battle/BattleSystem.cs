@@ -101,5 +101,11 @@ public class BattleSystem : NetworkBehaviour
         }
 
         battle.End(winnerNetId, loserNetId);
+        battles.Remove(battle);
+
+        if(NetworkManager.singleton.numPlayers == 1)
+        {
+            Debug.Log(NetworkServer.spawned[winnerNetId].gameObject + "won the game!");
+        }
     }
 }

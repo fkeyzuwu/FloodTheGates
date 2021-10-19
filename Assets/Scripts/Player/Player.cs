@@ -102,10 +102,4 @@ public class Player : NetworkBehaviour, IBattlable
     {
         combat.enabled = toggle;
     }
-
-    [TargetRpc]
-    public void TargetDisconnect()
-    {
-        NetworkClient.Disconnect();
-    }
 }
