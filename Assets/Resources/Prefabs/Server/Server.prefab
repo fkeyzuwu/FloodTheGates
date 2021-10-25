@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1397618887844834511}
   - component: {fileID: 1397618887844834508}
   - component: {fileID: 1397618887844834509}
-  - component: {fileID: 1397618887844834510}
   m_Layer: 0
   m_Name: Server
   m_TagString: Untagged
@@ -71,18 +70,5 @@ MonoBehaviour:
   - {fileID: 100095750996358310, guid: 09a516d4002b2794cbab35b5e99dd22c, type: 3}
   - {fileID: 384142612054072744, guid: fc4f295856c638247bd07c8b38e1fe8d, type: 3}
   - {fileID: 1733223080529008180, guid: 851362184febbaf498bfa7a5e645c77a, type: 3}
-  entityManager: {fileID: 1397618887844834510}
---- !u!114 &1397618887844834510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1397618887844834506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e837d18f164d2df43b8e2b300b0ccf6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 1
-  syncInterval: 0.1
+  resourceAmount: 0
+  entityManager: {fileID: 0}

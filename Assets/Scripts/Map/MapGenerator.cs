@@ -9,8 +9,6 @@ public class MapGenerator : NetworkBehaviour
     [SerializeField] private GameObject[] resources;
     [SerializeField] private int resourceAmount;
 
-    [SerializeField] private EntityManager entityManager;
-
     public override void OnStartServer()
     {
         GenerateMap();
@@ -35,8 +33,7 @@ public class MapGenerator : NetworkBehaviour
                 GameObject obj = Instantiate(resource, GenerateMapPosition(), GenerateObjectRotation(resource.transform.rotation), currentContainer);
                 Resource currentResource = obj.GetComponent<Resource>();
                 currentResource.GenerateAmount();
-                entityManager.AddEntity(obj, obj.GetComponent<NetworkIdentity>().netId);
-                //figure out a way to set a parent on the client
+                NetworkServer.Spawn(obj); //figure out a way to set a parent on the client
             }
         }
     }

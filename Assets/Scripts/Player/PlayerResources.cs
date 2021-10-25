@@ -40,7 +40,7 @@ public class PlayerResources : NetworkBehaviour
     {
         Resources[name] += amount;
         GameObject resource = NetworkServer.spawned[resourceNetId].gameObject;
-        EntityManager.Instance.RemoveEntity(resource, resourceNetId);
+        NetworkServer.Destroy(resource);
     }
 
     [Command]
