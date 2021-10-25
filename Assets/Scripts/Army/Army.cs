@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System;
 
 public class Army : NetworkBehaviour
 {
@@ -10,11 +11,11 @@ public class Army : NetworkBehaviour
 
     public void AddCreatureToArmy(Creature creature)
     {
-        CmdAddCreatureToArmy(creature.Data.Name, creature.Amount);
+        CmdAddCreatureToArmy(creature.Data.Name, creature.Amount, creature.netId);
     }
 
     [Command]
-    private void CmdAddCreatureToArmy(string creatureName, int amount)
+    private void CmdAddCreatureToArmy(string creatureName, int amount, uint creatureNetId)
     {
         if (slots.Count == 7) //Out of bounds
         {
@@ -22,6 +23,8 @@ public class Army : NetworkBehaviour
         }
 
         slots.Add(new ArmySlot(creatureName, amount));
+        GameObject creatureObj = NetworkServer.spawned[creatureNetId].gameObject;
+        NetworkServer.Destroy(gameObject);
     }
 
     [Server]
