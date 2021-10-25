@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IBattlable : IInteractable
 {
-
+    public void StartBattle(IBattlable enemy);
 }

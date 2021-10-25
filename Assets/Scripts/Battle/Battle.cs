@@ -25,17 +25,15 @@ public class Battle
 
     public void Start()
     {
-        Debug.Log(battleSystem);
-
         int battlerIndex = 0; //using to get certain positions in the fight
 
         //if only 1 battler is player - make a scene with one player and 1 ai based on creature
         //if 2 battlers are players - 1 player hosts the scene and the other one joins.
         foreach (IBattlable battler in battlers.Values)
         {
-            if (battler is Player)
+            if (battler is Player player)
             {
-                SetupPlayerForBattle(battler as Player, battlerIndex);
+                SetupPlayerForBattle(player, battlerIndex);
             }
             else
             {
@@ -97,7 +95,14 @@ public class Battle
 
     private void SetupAiForBattle(IBattlable battler, int index)
     {
-        
+        if (!isBattleSceneSet)
+        {
+            Player player = (Player)battlers.Where(battler => battler.Value is Player);
+            battleScene = ((FTGNetworkManager)NetworkManager.singleton).battleScenes[player.ID];
+            isBattleSceneSet = true;
+        }
+
+
     }
 
     public void End(uint winnerNetId, uint loserNetId)
@@ -105,9 +110,8 @@ public class Battle
         IBattlable winner = battlers[winnerNetId];
         IBattlable loser = battlers[loserNetId];
 
-        if(winner is Player)
+        if(winner is Player winnerPlayer)
         {
-            Player winnerPlayer = winner as Player;
             winnerPlayer.Army.UpdateArmy();
             DestroyBattleCreatures(winnerPlayer);
             ReturnPlayerToMap(winnerPlayer);
@@ -121,9 +125,8 @@ public class Battle
             NetworkServer.Destroy(((NetworkBehaviour)winner).gameObject);
         }
 
-        if(loser is Player)
+        if(loser is Player loserPlayer)
         {
-            Player loserPlayer = loser as Player;
             DestroyBattleCreatures(loserPlayer);
             SendPlayerToMenu(loserPlayer);
         }

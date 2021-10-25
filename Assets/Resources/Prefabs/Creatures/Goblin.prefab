@@ -16,7 +16,7 @@ MonoBehaviour:
   syncInterval: 0.1
   creatureName: Goblin
   keyCode: 0
-  OwnerID: 3
+  OwnerID: 1
   CurrentUnitHealth: 0
   Amount: 10
 --- !u!1001 &7456741206571597749
@@ -92,7 +92,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5361427890599300274, guid: 4bfa68e34e771fa479c07f3630096d6d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 344
+      value: 356
       objectReference: {fileID: 0}
     - target: {fileID: 5361427890599300274, guid: 4bfa68e34e771fa479c07f3630096d6d, type: 3}
       propertyPath: m_LocalRotation.w
