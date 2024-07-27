@@ -9,5 +9,3 @@ Players will begin in their "Area", and will begin going around gathering resour
 At different marks of the game, players will be allowed to go to areas of other players to try and fight them. the last player who survives, wins.
 
 At the end, game is souposed to have 8 factions so an 8 man multiplayer game (1 player for each faction). however it can be played with any number of players under 8.
-
-~~right now implemented basic player movement and resource gathering. will probably get stuck on the battle scenes but oki XD~~ Bitch i did it. basic combat Commenced. shit works
